@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acceuil | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div>
+            <p>Date du jour : {{ "now"|date('j/m/Y') }}</p>
+            <p>Participant : {# {{ app.user.username }} #}</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <label for="cbx_Site">Site : </label>
+                    <select class="form-select">
+                        <option selected>Site</option>
+                        {% for site in sites %}
+                            <option value="{{ site.id }}">{{ site.nomSite }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="row">
+
+                    <label>Le nom de la sortie contient :</label>
+                    <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search">
+                </div>
+                <div class="row">
+                    <div>                <label>Entre: </label> <input type="date"> <label> et </label> <input type="date">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-4 align-self-center">
+                <div>
+                    <input type="checkbox" name="orga"> <label for="orga">Sortie dont je suis l'organisateur/trice</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="inscrit"> <label for="inscrit">Sortie auxquelles je suis inscrit/e</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="non-inscrit"> <label for="non-inscrit">Sortie auxquelles je ne suis pas inscrit/e</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="passer"> <label for="passer">Sortie passées</label>
+                </div>
+            </div>
+            <div class="col-2 align-self-center">
+                <input type="submit" class="btn btn-primary" value="Rechercher">
+            </div>
+        </div>
+        <div class="container">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Nom de la sortie</th>
+                    <th scope="col">Date de la sortie</th>
+                    <th scope="col">Clôture</th>
+                    <th scope="col">inscrit/places</th>
+                    <th scope="col">Etat</th>
+                    <th scope="col">Inscrit</th>
+                    <th scope="col">Organisateur</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% if sorties is empty %}
+                    <tr>
+                    <td colspan="8">Aucune sortie</td>
+                    </tr>
+                {% else %}
+                    {% for sortie in sorties %}
+                        <tr>
+                            <td>{{ sortie.nom }}</td><!-- nom de la sortie -->
+                            <td>{{ sortie.dateDebut }}</td><!-- date de la sortie -->
+                            <td>{{ sortie.dateCloture }}</td><!-- cloture-->
+                            <td>{# TODO #}/{{ sortie.nbInscriptionMax }}</td><!-- inscrit/places -->
+                            <td>{{ sortie.etatSortie }}</td><!-- Etat -->
+                            <td></td><!-- Inscrit -->
+                            <td>{{ sortie.organisateur }}</td><!-- Organisateur -->
+                            <td></td><!-- Action -->
+                        </tr>
+                    {%  endfor %}
+                {% endif %}
+
+                </tbody>
+            </table>
+            <div class="container">
+                <a class="btn btn-dark" >Créer un sortie</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
