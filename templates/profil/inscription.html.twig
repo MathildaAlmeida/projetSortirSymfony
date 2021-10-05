@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfilController!{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-center" >
+		 {{ form_start(form) }}
+        
+
+		<div class="form-group row" >
+		
+			<label >Pseudo : * </label>
+  			<div class="col">{{ form_widget(form.pseudo) }}	</div>
+  			
+  			<label > Nom : * </label>
+  			<div class="col">{{ form_widget(form.nom) }}</div>
+			
+		</div>
+		
+		<div class=" form-group row">
+		
+			<label > Prénom : *</label>
+  			<div class="col">{{ form_widget(form.prenom) }}</div>
+			
+			<label > Email : * </label>
+			<div class="col"> {{ form_widget(form.mail) }}	</div>
+			
+		</div>
+
+		<div class="form-group row">
+			
+			<label> Mot de passe : *</label>
+  			<div class="col"> {{ form_widget(form.motDePasse) }}</div>
+			
+			<label> Confirmation : *</label>
+			<div class="col"> 	</div>
+			
+			
+		</div>
+		
+		<div class="form-group row justify-content-center" >
+			<div class="row">
+				<div class="col">
+					<div class=" alert-danger" role="alert"  id="errorPassword">
+					</div>
+				</div>
+			</div>
+		</div>
+		<p> * Champs obligatoires </p>
+		
+		
+		<div class="gap-2 col-6 mx-auto">
+	  		<input type="submit" class="btn btn-lg btn-outline-dark" value="S'inscrire">
+	  	
+			<a href="" class="btn btn-lg btn-outline-dark">Annuler</a>
+		</div>
+
+		</div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
