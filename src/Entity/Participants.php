@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,9 +28,9 @@ class Participants
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=15, nullable=true)
      */
-    private $prenom;
+    private $telephone;
 
     /**
      * @ORM\Column(type="string", length=20)
@@ -53,28 +51,6 @@ class Participants
      * @ORM\Column(type="boolean")
      */
     private $actif;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Inscriptions::class, mappedBy="noParticipant")
-     */
-    private $inscriptions;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Sites::class, inversedBy="participants")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $noSite;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Sorties::class, mappedBy="organisateur")
-     */
-    private $sorties;
-
-    public function __construct()
-    {
-        $this->inscriptions = new ArrayCollection();
-        $this->sorties = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -105,14 +81,14 @@ class Participants
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getTelephone(): ?string
     {
-        return $this->prenom;
+        return $this->telephone;
     }
 
-    public function setPrenom(string $prenom): self
+    public function setTelephone(?string $telephone): self
     {
-        $this->prenom = $prenom;
+        $this->telephone = $telephone;
 
         return $this;
     }
@@ -161,78 +137,6 @@ class Participants
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Inscriptions[]
-     */
-    public function getInscriptions(): Collection
-    {
-        return $this->inscriptions;
-    }
-
-    public function addInscription(Inscriptions $inscription): self
-    {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions[] = $inscription;
-            $inscription->setNoParticipant($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInscription(Inscriptions $inscription): self
-    {
-        if ($this->inscriptions->removeElement($inscription)) {
-            // set the owning side to null (unless already changed)
-            if ($inscription->getNoParticipant() === $this) {
-                $inscription->setNoParticipant(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getNoSite(): ?Sites
-    {
-        return $this->noSite;
-    }
-
-    public function setNoSite(?Sites $noSite): self
-    {
-        $this->noSite = $noSite;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Sorties[]
-     */
-    public function getSorties(): Collection
-    {
-        return $this->sorties;
-    }
-
-    public function addSorty(Sorties $sorty): self
-    {
-        if (!$this->sorties->contains($sorty)) {
-            $this->sorties[] = $sorty;
-            $sorty->setOrganisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSorty(Sorties $sorty): self
-    {
-        if ($this->sorties->removeElement($sorty)) {
-            // set the owning side to null (unless already changed)
-            if ($sorty->getOrganisateur() === $this) {
-                $sorty->setOrganisateur(null);
-            }
-        }
 
         return $this;
     }
