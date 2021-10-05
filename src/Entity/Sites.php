@@ -25,13 +25,13 @@ class Sites
     private $nomSite;
 
     /**
-     * @ORM\OneToMany(targetEntity=Participants::class, mappedBy="noSite")
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="noSite")
      */
-    private $participants;
+    private $users;
 
     public function __construct()
     {
-        $this->participants = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,29 +52,29 @@ class Sites
     }
 
     /**
-     * @return Collection|Participants[]
+     * @return Collection|User[]
      */
-    public function getParticipants(): Collection
+    public function getUsers(): Collection
     {
-        return $this->participants;
+        return $this->users;
     }
 
-    public function addParticipant(Participants $participant): self
+    public function addUser(User $user): self
     {
-        if (!$this->participants->contains($participant)) {
-            $this->participants[] = $participant;
-            $participant->setNoSite($this);
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setNoSite($this);
         }
 
         return $this;
     }
 
-    public function removeParticipant(Participants $participant): self
+    public function removeUser(User $user): self
     {
-        if ($this->participants->removeElement($participant)) {
+        if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($participant->getNoSite() === $this) {
-                $participant->setNoSite(null);
+            if ($user->getNoSite() === $this) {
+                $user->setNoSite(null);
             }
         }
 

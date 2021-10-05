@@ -23,13 +23,7 @@ class Inscriptions
     private $dateInscription;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Sorties::class, inversedBy="inscriptions")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $noSortie;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Participants::class, inversedBy="inscriptions")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="inscriptions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $noParticipant;
@@ -51,27 +45,16 @@ class Inscriptions
         return $this;
     }
 
-    public function getNoSortie(): ?Sorties
-    {
-        return $this->noSortie;
-    }
-
-    public function setNoSortie(?Sorties $noSortie): self
-    {
-        $this->noSortie = $noSortie;
-
-        return $this;
-    }
-
-    public function getNoParticipant(): ?Participants
+    public function getNoParticipant(): ?User
     {
         return $this->noParticipant;
     }
 
-    public function setNoParticipant(?Participants $noParticipant): self
+    public function setNoParticipant(?User $noParticipant): self
     {
         $this->noParticipant = $noParticipant;
 
         return $this;
     }
+
 }

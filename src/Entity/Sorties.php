@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\SortiesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,17 +53,12 @@ class Sorties
     private $etatSortie;
 
     /**
-     * @ORM\Column(type="string", length=205, nullable=true)
+     * @ORM\Column(type="string", length=250, nullable=true)
      */
     private $urlPhoto;
 
     /**
-     * @ORM\OneToMany(targetEntity=Inscriptions::class, mappedBy="noSortie")
-     */
-    private $inscriptions;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Participants::class, inversedBy="sorties")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
     private $organisateur;
@@ -81,11 +74,6 @@ class Sorties
      * @ORM\JoinColumn(nullable=false)
      */
     private $noEtat;
-
-    public function __construct()
-    {
-        $this->inscriptions = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -188,42 +176,12 @@ class Sorties
         return $this;
     }
 
-    /**
-     * @return Collection|Inscriptions[]
-     */
-    public function getInscriptions(): Collection
-    {
-        return $this->inscriptions;
-    }
-
-    public function addInscription(Inscriptions $inscription): self
-    {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions[] = $inscription;
-            $inscription->setNoSortie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInscription(Inscriptions $inscription): self
-    {
-        if ($this->inscriptions->removeElement($inscription)) {
-            // set the owning side to null (unless already changed)
-            if ($inscription->getNoSortie() === $this) {
-                $inscription->setNoSortie(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getOrganisateur(): ?Participants
+    public function getOrganisateur(): ?User
     {
         return $this->organisateur;
     }
 
-    public function setOrganisateur(?Participants $organisateur): self
+    public function setOrganisateur(?User $organisateur): self
     {
         $this->organisateur = $organisateur;
 
