@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\ProfilFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,14 +26,26 @@ class ProfilController extends AbstractController
     /**
      * @Route("/inscription", name="profil_inscription",  methods={"GET","POST"})
      */
-    public function inscription(Request $request): Response
+    public function inscription(Request $request, EntityManagerInterface  $em, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        
-        $form = $this->createForm(ProfilFormType::class);
+        $user =new User();
+        $form = $this->createForm(ProfilFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
+
+            $user->setAdministrateur(0);
+            $user->setActif(1);
+
+            $em->persist($user);
+            $em->flush();
 
             return $this->redirectToRoute('acceuil');
         }
