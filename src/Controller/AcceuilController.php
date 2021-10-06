@@ -21,10 +21,10 @@ class AcceuilController extends AbstractController
         $sites      = $repoSite->findAll();
         $user       = $this->getUser();
         $inscrits = "";
-        if(!empty($user)){
+        if (!empty($user)) {
             $inscrit    = $repoInscrit->findBy(
                 [
-                    'no_participant_id' => $user->getId()
+                    'noParticipant' => $user->getId()
                 ]
             );
         }
