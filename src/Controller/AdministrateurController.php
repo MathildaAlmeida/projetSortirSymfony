@@ -13,7 +13,7 @@ class AdministrateurController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('administrateur/acceuil.html.twig', [
+        return $this->render('administrateur/accueil.html.twig', [
             'controller_name' => 'AdministrateurController',
         ]);
     }

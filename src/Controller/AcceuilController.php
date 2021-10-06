@@ -20,7 +20,7 @@ class AcceuilController extends AbstractController
         $sorties    = $repoSortie->findAll();
         $sites      = $repoSite->findAll();
         $user       = $this->getUser();
-        $inscrit = "";
+        $inscrits = "";
         if(!empty($user)){
             $inscrit    = $repoInscrit->findBy(
                 [
@@ -34,7 +34,7 @@ class AcceuilController extends AbstractController
             'sorties'   =>  $sorties,
             'sites'     =>  $sites,
             'user'      =>  $user,
-            'inscrits'   =>  $inscrit
+            'inscrits'   =>  $inscrits
         ]);
     }
 }
