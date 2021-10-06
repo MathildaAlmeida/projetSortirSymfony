@@ -10,6 +10,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+
+use function PHPUnit\Framework\isEmpty;
 
 class ProfilController extends AbstractController
 {
@@ -26,18 +29,23 @@ class ProfilController extends AbstractController
     /**
      * @Route("/inscription", name="profil_inscription",  methods={"GET","POST"})
      */
-    public function inscription(Request $request, EntityManagerInterface  $em, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function inscription(Request $request, EntityManagerInterface  $em, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator): Response
     {
         $user =new User();
         $form = $this->createForm(ProfilFormType::class, $user);
         $form->handleRequest($request);
 
+        $errors = $validator->validate($user);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            if($user->getTelephone() == null){
+                $user->setTelephone(null);
+            }
             $user->setPassword( $passwordEncoder->encodePassword( $user,$user->getPassword() ));
 
             $user->setAdministrateur(0);
             $user->setActif(1);
+            
 
             $em->persist($user);
             $em->flush();
@@ -46,7 +54,8 @@ class ProfilController extends AbstractController
         }
 
         return $this->renderForm('profil/inscription.html.twig', [
-            'form' => $form
+            'form' => $form,
+            'errors' => $errors
         ]);
     }
 }
