@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\EtatsRepository;
 use App\Repository\InscriptionsRepository;
 use App\Repository\SitesRepository;
 use App\Repository\SortiesRepository;
@@ -15,26 +16,28 @@ class AcceuilController extends AbstractController
     /**
      * @Route("/", name="accueil")
      */
-    public function accueil(SortiesRepository $repoSortie, SitesRepository $repoSite, InscriptionsRepository  $repoInscrit): Response
+    public function accueil(EtatsRepository $repoEtat,SortiesRepository $repoSortie, SitesRepository $repoSite, InscriptionsRepository  $repoInscrit): Response
     {
         $sorties    = $repoSortie->findAll();
         $sites      = $repoSite->findAll();
+        $etat       = $repoEtat->findAll();
         $user       = $this->getUser();
         $inscrits = "";
+
         if (!empty($user)) {
-            $inscrit    = $repoInscrit->findBy(
+            $inscrits    = $repoInscrit->findBy(
                 [
                     'noParticipant' => $user->getId()
                 ]
             );
         }
 
-
         return $this->render('accueil/accueil.html.twig', [
             'sorties'   =>  $sorties,
             'sites'     =>  $sites,
             'user'      =>  $user,
-            'inscrits'   =>  $inscrits
+            'inscrits'  =>  $inscrits,
+            'etat'      =>  $etat
         ]);
     }
 }

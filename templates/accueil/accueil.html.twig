@@ -4,9 +4,13 @@
 
 {% block body %}
     <div class="container">
-        <div>
+        <div class="row">
+            <div class="col">
             <p>Date du jour : {{ "now"|date('j/m/Y') }}</p>
-            <p>Participant : </p>
+            {% if app.user %}
+                <p>Participant : {{ user.nom}} {{  user.prenom}} </p>
+            {% endif %}
+            </div>
         </div>
     </div>
     <div class="container">
@@ -15,7 +19,6 @@
                 <div class="row">
                     <label for="cbx_Site">Site : </label>
                     <select class="form-select">
-                        <option selected>Site</option>
                         {% for site in sites %}
                             <option value="{{ site.id }}">{{ site.nomSite }}</option>
                         {% endfor %}
@@ -75,26 +78,28 @@
                     {% for sortie in sorties %}
                         <tr>
                             <td>{{ sortie.nom }}</td><!-- nom de la sortie -->
-                            <td>{{ sortie.dateDebut }}</td><!-- date de la sortie -->
-                            <td>{{ sortie.dateCloture }}</td><!-- cloture-->
+                            <td>{{ sortie.dateDebut|date('j-m-Y') }}</td><!-- date de la sortie -->
+                            <td>{{ sortie.dateCloture|date('j-m-Y') }}</td><!-- cloture-->
                             <td>{# TODO #}/{{ sortie.nbInscriptionMax }}</td><!-- inscrit/places -->
-                            <td>{{ sortie.etatSortie }}</td><!-- Etat -->
-                            {% for inscrit in inscrits %}
-                                {% if sortie.id == inscrit.id %}
-                                    <td>X</td><!-- Inscrit -->
-                                {% else %}
-                                    <td></td><!-- Inscrit -->
+                            <td>{{ sortie.noEtat.libelle }}</td><!-- Etat -->
+                            {% if app.user %}
+                                {% for inscrit in inscrits %}
+                                    {% if inscrit.noSortie != sortie  %}
+                                        <td></td>
+                                    {% else %}
+                                        <td>X</td>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if inscrits is empty %}
+                                    <td></td>
                                 {% endif %}
-                            {% endfor %}
-                            <td><a href="{# todo #}">{{ sortie.organisateur }}</a></td><!-- Organisateur -->
-                            <td><a href="{# todo #}"></a> - <a href="{# todo #}">Se désister</a></td><!-- Action -->
-                            <td><a href="{# todo #}">Afficher</a></td><!-- Action -->
-                            <td><a</td><!-- Action -->
-                            <td></td><!-- Action -->
+                            {% else %}
+                                <td><a  class="btn btn-sm btn-outline-dark" href="{{ path('app_login') }}">Connection</a>aaa</td>
+                            {% endif %}
+                            <td><a class="btn btn-sm btn-outline-dark" href="{# todo #}">{{ sortie.organisateur.nom}}</a></td><!-- Organisateur -->
                         </tr>
                     {%  endfor %}
                 {% endif %}
-
                 </tbody>
             </table>
             <div class="container">
