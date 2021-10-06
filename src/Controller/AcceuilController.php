@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Repository\InscriptionsRepository;
 use App\Repository\SitesRepository;
 use App\Repository\SortiesRepository;
+use http\Client\Curl\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,16 +13,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class AcceuilController extends AbstractController
 {
     /**
-     * @Route("/", name="acceuil")
+     * @Route("/", name="accueil")
      */
-    public function index(SortiesRepository $repoSortie, SitesRepository $repoSite): Response
+    public function accueil(SortiesRepository $repoSortie, SitesRepository $repoSite, InscriptionsRepository  $repoInscrit): Response
     {
-        $sorties = $repoSortie->findAll();
-        $sites = $repoSite->findAll();
+        $sorties    = $repoSortie->findAll();
+        $sites      = $repoSite->findAll();
+        $user       = $this->getUser();
+        $inscrit = "";
+        if(!empty($user)){
+            $inscrit    = $repoInscrit->findBy(
+                [
+                    'no_participant_id' => $user->getId()
+                ]
+            );
+        }
 
-        return $this->render('acceuil/Acceuil.html.twig', [
-            'sorties' => $sorties,
-            'sites'=> $sites
+
+        return $this->render('accueil/accueil.html.twig', [
+            'sorties'   =>  $sorties,
+            'sites'     =>  $sites,
+            'user'      =>  $user,
+            'inscrits'   =>  $inscrit
         ]);
     }
 }

@@ -28,6 +28,12 @@ class Inscriptions
      */
     private $noParticipant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Sorties::class, inversedBy="inscriptions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $noSortie;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,6 +59,18 @@ class Inscriptions
     public function setNoParticipant(?User $noParticipant): self
     {
         $this->noParticipant = $noParticipant;
+
+        return $this;
+    }
+
+    public function getNoSortie(): ?Sorties
+    {
+        return $this->noSortie;
+    }
+
+    public function setNoSortie(?Sorties $noSortie): self
+    {
+        $this->noSortie = $noSortie;
 
         return $this;
     }

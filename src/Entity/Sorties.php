@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SortiesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -74,6 +76,16 @@ class Sorties
      * @ORM\JoinColumn(nullable=false)
      */
     private $noEtat;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Inscriptions::class, mappedBy="noSortie")
+     */
+    private $inscriptions;
+
+    public function __construct()
+    {
+        $this->inscriptions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -208,6 +220,36 @@ class Sorties
     public function setNoEtat(?Etats $noEtat): self
     {
         $this->noEtat = $noEtat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Inscriptions[]
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscriptions $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions[] = $inscription;
+            $inscription->setNoSortie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscriptions $inscription): self
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getNoSortie() === $this) {
+                $inscription->setNoSortie(null);
+            }
+        }
 
         return $this;
     }

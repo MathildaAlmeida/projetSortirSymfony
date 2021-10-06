@@ -6,7 +6,7 @@
     <div class="container">
         <div>
             <p>Date du jour : {{ "now"|date('j/m/Y') }}</p>
-            <p>Participant : {# {{ app.user.username }} #}</p>
+            <p>Participant : </p>
         </div>
     </div>
     <div class="container">
@@ -69,7 +69,7 @@
                 <tbody>
                 {% if sorties is empty %}
                     <tr>
-                    <td colspan="8">Aucune sortie</td>
+                        <td colspan="8">Aucune sortie</td>
                     </tr>
                 {% else %}
                     {% for sortie in sorties %}
@@ -79,8 +79,17 @@
                             <td>{{ sortie.dateCloture }}</td><!-- cloture-->
                             <td>{# TODO #}/{{ sortie.nbInscriptionMax }}</td><!-- inscrit/places -->
                             <td>{{ sortie.etatSortie }}</td><!-- Etat -->
-                            <td></td><!-- Inscrit -->
-                            <td>{{ sortie.organisateur }}</td><!-- Organisateur -->
+                            {% for inscrit in inscrits %}
+                                {% if sortie.id == inscrit.id %}
+                                    <td>X</td><!-- Inscrit -->
+                                {% else %}
+                                    <td></td><!-- Inscrit -->
+                                {% endif %}
+                            {% endfor %}
+                            <td><a href="{# todo #}">{{ sortie.organisateur }}</a></td><!-- Organisateur -->
+                            <td><a href="{# todo #}"></a> - <a href="{# todo #}">Se désister</a></td><!-- Action -->
+                            <td><a href="{# todo #}">Afficher</a></td><!-- Action -->
+                            <td><a</td><!-- Action -->
                             <td></td><!-- Action -->
                         </tr>
                     {%  endfor %}
