@@ -29,7 +29,7 @@ class ProfilController extends AbstractController
     }
 
     /**
-     * @Route("/inscription", name="profil_inscription",  methods={"GET","POST"})
+     * @Route("/inscription", name="inscription",  methods={"GET","POST"})
      */
     public function inscription(Request $request, EntityManagerInterface  $em, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator): Response
     {
