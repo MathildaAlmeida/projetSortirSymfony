@@ -21,7 +21,7 @@ class ProfilController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('profil/Acceuil.html.twig', [
+        return $this->render('profil/accueil.html.twig', [
             'controller_name' => 'ProfilController',
         ]);
     }
@@ -50,7 +50,7 @@ class ProfilController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('acceuil');
+            return $this->redirectToRoute('accueil');
         }
 
         return $this->renderForm('profil/inscription.html.twig', [

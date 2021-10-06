@@ -13,7 +13,7 @@ class SortieController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('sortie/Acceuil.html.twig', [
+        return $this->render('sortie/accueil.html.twig', [
             'controller_name' => 'SortieController',
         ]);
     }

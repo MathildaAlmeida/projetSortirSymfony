@@ -24,8 +24,8 @@ class ConnexionController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        //return $this->redirectToRoute('accueil');
     }
-
     /**
      * @Route("/logout", name="app_logout")
      */
