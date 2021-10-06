@@ -23,10 +23,11 @@
   			<div class="col">{{ form_widget(form.prenom) }}</div>
 			
 			<label > Email : * </label>
-			<div class="col"> {{ form_widget(form.email) }}	</div>
+			<div class="col"> {{ form_widget(form.email) }}	{{ value }}
+			</div>
 
 			<label> Téléphone : </label>
-  			<div class="col">	 {{ form_widget(form.telephone) }}	</div>		
+  			<div class="col">	 {{ form_widget(form.telephone) }} {{ value }}	</div>		
 
 			<label> Site de rattachement : * </label>
   			<div class="col">	 {{ form_widget(form.noSite) }}	</div>	
@@ -36,13 +37,13 @@
 		<div class="form-group row">
 			
 			<label> {{form_label(form.password.first)}} *</label>
-  			<div class="col"> {{ form_widget(form.password.first) }}</div>
+  			<div class="col"> {{ form_widget(form.password.first) }} {{ value }}</div>
 			
 			<label>{{form_label(form.password.second)}} *</label>
 			<div class="col">{{ form_widget(form.password.second) }} </div>
 
-			
-				{{ form_errors(form.password) }} 
+			{{ form_errors(form.password) }}
+				 
 
 		</div>
 		<p> * Champs obligatoires </p>

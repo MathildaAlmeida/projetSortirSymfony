@@ -41,30 +41,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
-     * @Assert\Regex(
-     * pattern = "/^(01|02|03|04|05|06|07|08|09)[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{2}[ \.\-]?[0-9]{2}/m",
-     * match=true,
-     * message="Le téléphone n'est pas sur le bon format ")
+     * 
      */
     private $telephone;
     
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\Regex(
-     * pattern = "/^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})/m",
-     * match=true,
-     * message="l'email doit être du format 'mail.mail@mail.com'")
+     *
      */
     private $email;
 
     /**
      * @var string The hashed password
      *
-     * @Assert\Regex(
-     * pattern = "/^(?=.*\d)(?=.*[A-Z])(?=.*[@#$%])(?!.*(.)\1{2}).*[a-z]/m",
-     * match=true,
-     * message="Votre mot de passe doit comporter au moins huit caractères, dont des lettres majuscules et minuscules, un chiffre et un symbole.")
      * @ORM\Column(type="string")
      */
     private $password;
