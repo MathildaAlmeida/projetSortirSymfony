@@ -21,13 +21,13 @@
 					{% set route_name = app.request.attributes.get('_route')%}
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link {# {% if route_name == '' %}active{% endif %} #}" href="{# {{ path('') }} #}">Villes</a>
+							<a class="nav-link  {% if route_name == 'villes_administrateur' %}active{% endif %} " href=" {{ path('villes') }} ">Villes</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link {# {% if route_name == '' %}active{% endif %} #}" href="{# {{ path('') }} #}">Sites</a>
+							<a class="nav-link {% if route_name == 'sites_administrateur' %}active{% endif %} #}" href=" {{ path('sites') }} ">Sites</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link  {% if route_name == 'accueil' %}active{% endif %} #}" href=" {{ path('accueil') }} ">Accueil</a>
+							<a class="nav-link  {% if route_name == 'accueil' %}active{% endif %} " href=" {{ path('accueil') }} ">Accueil</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link  {% if route_name == 'inscription' %}active{% endif %} " href=" {{ path('inscription') }} ">Créer un utilisateur</a>

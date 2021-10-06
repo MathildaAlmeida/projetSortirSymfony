@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les sites{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-center" >
+		
+	
+        <h1> Gérer les sites  </h1>
+
+         <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Sites</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in sites %}
+                    <tr>
+                        <td id="ville">  {{s.nomSite}}</td>
+                        <td> <a  class="btn btn-primary"> Modifier</a>
+                            <a onclick="return confirm('Supprimer :{{ s.nomSite }} ?')" href="{{ path('supprimer_site',{ id:s.id }) }}"  class="btn btn-danger del">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td><input type="text" /></td>
+                    <td><a  class="btn btn-primary"> Ajouter </a></td>
+                </tr>  
+            </tbody>
+        </table>
+		
+    </div>
+{% endblock %}

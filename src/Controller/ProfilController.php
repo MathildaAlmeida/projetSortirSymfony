@@ -19,12 +19,34 @@ use function PHPUnit\Framework\isEmpty;
 class ProfilController extends AbstractController
 {
     /**
-     * @Route("/profil", name="profil")
+     * @Route("/profil", name="profil",  methods={"GET","POST"})
      */
-    public function index(): Response
+    public function profil(Request $request, EntityManagerInterface  $em, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator): Response
     {
-        return $this->render('profil/accueil.html.twig', [
-            'controller_name' => 'ProfilController',
+        $user =new User();
+        $form = $this->createForm(ProfilFormType::class, $user);
+        $form->handleRequest($request);
+
+        $errors = $validator->validate($user);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if($user->getTelephone() == null){
+                $user->setTelephone(null);
+            }
+            $user->setPassword( $passwordEncoder->encodePassword( $user,$user->getPassword() ));
+
+            $user->setAdministrateur(0);
+            $user->setActif(1);
+            
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('accueil');
+        }
+
+        return $this->renderForm('profil/monProfil.html.twig', [
+            'form' => $form,
+            'errors' => $errors
         ]);
     }
 

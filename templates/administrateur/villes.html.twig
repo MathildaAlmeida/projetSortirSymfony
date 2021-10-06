@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les villes{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-center" >
+		
+	
+        <h1> Gérer les villes  </h1>
+         <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Villes</th>
+                    <th scope="col">Code Postal</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for v in villes %}
+                    <tr>
+                        <td id="ville">  {{v.nomVille}}</td>
+                        <td> {{ v.codePostal}}</td>
+                        <td> <a  class="btn btn-primary"> Modifier</a>
+                            <a onclick="return confirm('Supprimer :{{ v.nomVille }} ?')" href="{{ path('supprimer_ville',{ id:v.id }) }}"  class="btn btn-danger del">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td><input type="text" /></td>
+                    <td><input type="text" /></td>
+                    <td><a  class="btn btn-primary"> Ajouter </a></td>
+                </tr>  
+            </tbody>
+        </table>
+
+
+        
+		
+    </div>
+{% endblock %}
