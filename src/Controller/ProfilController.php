@@ -34,12 +34,7 @@ class ProfilController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
+            $user->setPassword( $passwordEncoder->encodePassword( $user,$user->getPassword() ));
 
             $user->setAdministrateur(0);
             $user->setActif(1);

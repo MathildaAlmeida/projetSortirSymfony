@@ -35,15 +35,15 @@
 
 		<div class="form-group row">
 			
-			<label> Mot de passe : *</label>
+			<label> {{form_label(form.password.first)}} *</label>
   			<div class="col"> {{ form_widget(form.password.first) }}</div>
 			
-			<label> Confirmation : *</label>
+			<label>{{form_label(form.password.second)}} *</label>
 			<div class="col">{{ form_widget(form.password.second) }} </div>
 
-			<div class="alert alert-danger"> {{ form_errors(form.password)}}</div>
 			
-			
+				{{ form_errors(form.password) }} 
+
 		</div>
 		<p> * Champs obligatoires </p>
 		

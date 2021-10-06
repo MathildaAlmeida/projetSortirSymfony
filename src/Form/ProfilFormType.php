@@ -29,10 +29,9 @@ class ProfilFormType extends AbstractType
             ->add('email')
             ->add('password', RepeatedType::class, array(
                 'type'              => PasswordType::class,
-                'mapped'            => false,
-                'first_options'     => array('label' => 'Mot de passe'),
-                'second_options'    => array('label' => 'Confirmer le mot de passe'),
-                'invalid_message' => 'The password fields must match.',
+                'first_options'     => array('label' => 'Mot de passe :'),
+                'second_options'    => array('label' => 'Confirmer le mot de passe :'),
+                'invalid_message' => 'Veuilez mettre un mot de passe identique',
             ))
         ;
     }
