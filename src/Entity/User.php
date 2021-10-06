@@ -44,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * 
      */
     private $telephone;
-    
+
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -92,7 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->sorties = new ArrayCollection();
     }
 
-  
+
 
     public function getId(): ?int
     {
@@ -326,6 +326,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
- 
 }
