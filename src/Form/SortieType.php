@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Lieux;
 use App\Entity\Sorties;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -41,7 +42,6 @@ class SortieType extends AbstractType
             ->add('descriptionInfos',TextareaType::class,[
                 'label' => 'Description : '
                 ])
-
             ->add('noLieu', EntityType::class, array(
                 'class'=> Lieux::class,
                 'label'=> 'lieux : ',
