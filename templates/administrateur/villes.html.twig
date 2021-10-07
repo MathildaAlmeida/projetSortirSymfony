@@ -3,10 +3,23 @@
 {% block title %}Les villes{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center" >
-		
+    
+	<div class="d-flex justify-content-center" >
 	
         <h1> Gérer les villes  </h1>
+    </div>
+
+    <h2>Filtrer les villes </h2>
+        
+        <nav class="navbar navbar-light bg-light">
+            <form class="form-inline">
+                <p> Le nom contient : </p>
+                <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Rechercher">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button> 
+            </form>
+        </nav>
+
+        <div class="d-flex justify-content-center" >
          <table class="table table-striped">
             <thead>
                 <tr>
@@ -26,9 +39,11 @@
                     </tr>
                 {% endfor %}
                 <tr>
-                    <td><input type="text" /></td>
-                    <td><input type="text" /></td>
-                    <td><a  class="btn btn-primary"> Ajouter </a></td>
+                 <form action="{{ path('ajout_rapide_ville') }}" class="form-group form-control" method="POST">
+                    <td><input type="text" name="nomVille" placeholder="une ville" /></td>
+                    <td><input type="text" name="codePostal" placeholder="un code postal"/></td>
+                    <td><button type="submit" class="btn btn-success">Ajouter</button>
+                 </form>
                 </tr>  
             </tbody>
         </table>

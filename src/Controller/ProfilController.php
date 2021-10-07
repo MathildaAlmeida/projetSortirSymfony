@@ -23,8 +23,12 @@ class ProfilController extends AbstractController
      */
     public function profil(Request $request, EntityManagerInterface  $em, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator): Response
     {
+        //dd($this->getUser());
+        $userCon = $this->getUser();
+        
+
         $user =new User();
-        $form = $this->createForm(ProfilFormType::class, $user);
+        $form = $this->createForm(ProfilFormType::class, $userCon);
         $form->handleRequest($request);
 
         $errors = $validator->validate($user);
