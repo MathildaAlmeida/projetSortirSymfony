@@ -106,7 +106,7 @@
                                             {% if sortie.noEtat.libelle == 'En création' %}
                                                 - <a>modifier</a> - <a>Publier</a>
                                             {% elseif sortie.noEtat.libelle == 'Ouvert' %}
-                                                - <a>Annuler</a>
+                                                - <a  href="{{ path('sortie_annuler',{ id:sortie.id }) }}">Annuler</a>
                                             {% endif %}
                                         {% else %}
                                             {% if sortie.noEtat.libelle == 'Ouvert' and inscrit.noSortie == sortie%}

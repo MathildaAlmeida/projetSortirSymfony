@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annuler une sortie{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-center" >
+		<h1> Annuler une sortie  </h1>
+    </div>
+
+    <div class="justify-content-center" >
+
+        {% for s in sorties %}
+            <p> Nom de la sortie :  {{ s.nom }}</p> 
+            <p> Date de la sortie :   {{ s.dateDebut|date("m/d/Y H:i:s") }}</p>
+            <p> Ville organisatrice :   {{ s.organisateur.noSite.nomSite }}</p>
+            <p> Lieu :  {{ s.noLieu.nomLieu }} {{ s.noLieu.rue }} {{ s.noLieu.noVille.codePostal }} {{ s.noLieu.noVille.nomVille }}</p>
+        
+
+        <form action="{{ path('sortie_annuler',{ id:s.id }) }}"  method="POST">
+
+        
+		    <p> Motif :</p> 
+		    <textarea   rows="5" cols="33" name="motif">  </textarea>
+        	
+	
+		
+		<div class="gap-2 col-6 mx-auto">
+	  		<button type="submit" class="btn btn-sm btn-outline-dark" > Enregistrer</button>	  	
+			<a href="{{ path('accueil')}}" class="btn btn-sm btn-outline-dark">Annuler</a>
+		</div>
+
+        </form>
+        {% endfor %}
+    </div>
+
+    
+{% endblock %}
+
