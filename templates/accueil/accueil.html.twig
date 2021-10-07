@@ -76,7 +76,7 @@
                     </tr>
                 {% else %}
                     {% for sortie in sorties %}
-                        {% if sortie.noEtat.libelle == 'En création' and sortie.organisateur.pseudo != app.user.pseudo  %}
+                        {% if sortie.noEtat.libelle == 'En création' and sortie.organisateur != app.user  %}
 
                         {% else %}
                             <tr>
@@ -124,7 +124,7 @@
                 </tbody>
             </table>
             <div class="container">
-                <a class="btn btn-dark" >Créer un sortie</a>
+                <a class="btn btn-dark" href="{{ path('sortie_ajout') }}" >Créer un sortie</a>
             </div>
         </div>
     </div>
