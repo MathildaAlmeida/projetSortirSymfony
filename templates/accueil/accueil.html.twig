@@ -6,10 +6,10 @@
     <div class="container">
         <div class="row">
             <div class="col">
-            <p>Date du jour : {{ "now"|date('j/m/Y') }}</p>
-            {% if app.user %}
-                <p>Participant : {{ user.nom}} {{  user.prenom}} </p>
-            {% endif %}
+                <p>Date du jour : {{ "now"|date('j/m/Y') }}</p>
+                {% if app.user %}
+                    <p>Participant : {{ user.nom}} {{  user.prenom}} </p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -76,28 +76,49 @@
                     </tr>
                 {% else %}
                     {% for sortie in sorties %}
-                        <tr>
-                            <td>{{ sortie.nom }}</td><!-- nom de la sortie -->
-                            <td>{{ sortie.dateDebut|date('j-m-Y') }}</td><!-- date de la sortie -->
-                            <td>{{ sortie.dateCloture|date('j-m-Y') }}</td><!-- cloture-->
-                            <td>{# TODO #}/{{ sortie.nbInscriptionMax }}</td><!-- inscrit/places -->
-                            <td>{{ sortie.noEtat.libelle }}</td><!-- Etat -->
-                            {% if app.user %}
-                                {% for inscrit in inscrits %}
-                                    {% if inscrit.noSortie != sortie  %}
+                        {% if sortie.noEtat.libelle == 'En création' and sortie.organisateur.pseudo != app.user.pseudo  %}
+
+                        {% else %}
+                            <tr>
+                                <td>{{ sortie.nom }}</td><!-- nom de la sortie -->
+                                <td>{{ sortie.dateDebut|date('j-m-Y') }}</td><!-- date de la sortie -->
+                                <td>{{ sortie.dateCloture|date('j-m-Y') }}</td><!-- cloture-->
+                                <td>{# TODO #}/{{ sortie.nbInscriptionMax }}</td><!-- inscrit/places -->
+                                <td>{{ sortie.noEtat.libelle }}</td><!-- Etat -->
+                                {% if app.user %}
+                                    {% for inscrit in inscrits %}
+                                        {% if inscrit.noSortie != sortie  %}
+                                            <td></td>
+                                        {% else %}
+                                            <td>X</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if inscrits is empty %}
                                         <td></td>
-                                    {% else %}
-                                        <td>X</td>
                                     {% endif %}
-                                {% endfor %}
-                                {% if inscrits is empty %}
-                                    <td></td>
+                                {% else %}
+                                    <td><a  class="btn btn-sm btn-outline-dark" href="{{ path('app_login') }}">Connection</a>aaa</td>
                                 {% endif %}
-                            {% else %}
-                                <td><a  class="btn btn-sm btn-outline-dark" href="{{ path('app_login') }}">Connection</a>aaa</td>
-                            {% endif %}
-                            <td><a class="btn btn-sm btn-outline-dark" href="{# todo #}">{{ sortie.organisateur.nom}}</a></td><!-- Organisateur -->
-                        </tr>
+                                <td><a class="btn btn-sm btn-outline-dark" href="{# todo #}">{{ sortie.organisateur.nom}}</a></td><!-- Organisateur -->
+                                <td>Afficher
+                                    {% if app.user %}
+                                        {% if sortie.organisateur.pseudo == app.user.pseudo %}
+                                            {% if sortie.noEtat.libelle == 'En création' %}
+                                                - <a>modifier</a> - <a>Publier</a>
+                                            {% elseif sortie.noEtat.libelle == 'Ouvert' %}
+                                                - <a>Annuler</a>
+                                            {% endif %}
+                                        {% else %}
+                                            {% if sortie.noEtat.libelle == 'Ouvert' and inscrit.noSortie == sortie%}
+                                                - <a>Se désister</a>
+                                            {% elseif sortie.noEtat.libelle == 'Ouvert' and inscrit.noSortie != sortie %}
+                                                - <a>S'inscrire</a>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endif %}
                     {%  endfor %}
                 {% endif %}
                 </tbody>
