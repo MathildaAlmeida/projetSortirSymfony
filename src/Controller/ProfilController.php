@@ -27,22 +27,22 @@ class ProfilController extends AbstractController
         $userCon = $this->getUser();
         
 
-        $user =new User();
+       // $user =new User();
         $form = $this->createForm(ProfilFormType::class, $userCon);
         $form->handleRequest($request);
 
-        $errors = $validator->validate($user);
+        $errors = $validator->validate($userCon);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($user->getTelephone() == null){
-                $user->setTelephone(null);
+            if($userCon->getTelephone() == null){
+                $userCon->setTelephone(null);
             }
-            $user->setPassword( $passwordEncoder->encodePassword( $user,$user->getPassword() ));
+            $userCon->setPassword( $passwordEncoder->encodePassword( $userCon,$userCon->getPassword() ));
 
-            $user->setAdministrateur(0);
-            $user->setActif(1);
+            $userCon->setAdministrateur(0);
+            $userCon->setActif(1);
             
-            $em->persist($user);
+            $em->persist($userCon);
             $em->flush();
 
             return $this->redirectToRoute('accueil');

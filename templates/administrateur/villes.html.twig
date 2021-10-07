@@ -29,22 +29,23 @@
                 </tr>
             </thead>
             <tbody>
-                {% for v in villes %}
-                    <tr>
-                        <td id="ville">  {{v.nomVille}}</td>
-                        <td> {{ v.codePostal}}</td>
-                        <td> <a  class="btn btn-primary"> Modifier</a>
-                            <a onclick="return confirm('Supprimer :{{ v.nomVille }} ?')" href="{{ path('supprimer_ville',{ id:v.id }) }}"  class="btn btn-danger del">Supprimer</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                <tr>
+               <tr>
                  <form action="{{ path('ajout_rapide_ville') }}" class="form-group form-control" method="POST">
                     <td><input type="text" name="nomVille" placeholder="une ville" /></td>
                     <td><input type="text" name="codePostal" placeholder="un code postal"/></td>
                     <td><button type="submit" class="btn btn-success">Ajouter</button>
                  </form>
-                </tr>  
+                </tr>
+                {% for v in villes %}
+                    <tr>
+                        <td id="ville">  {{v.nomVille}}</td>
+                        <td> {{ v.codePostal}}</td>
+                        <td> <a  class="btn btn-primary" href="{{ path('modifier_ville',{ id:v.id }) }}"> Modifier</a>
+                            <a onclick="return confirm('Supprimer :{{ v.nomVille }} ?')" href="{{ path('supprimer_ville',{ id:v.id }) }}"  class="btn btn-danger del">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+  
             </tbody>
         </table>
 

@@ -50,9 +50,9 @@ class Sorties
     private $descriptionInfos;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $etatSortie;
+    private $motifAnnulation;
 
     /**
      * @ORM\Column(type="string", length=250, nullable=true)
@@ -164,14 +164,14 @@ class Sorties
         return $this;
     }
 
-    public function getEtatSortie(): ?int
+    public function getmotifAnnulation(): ?int
     {
-        return $this->etatSortie;
+        return $this->motifAnnulation;
     }
 
-    public function setEtatSortie(?int $etatSortie): self
+    public function setmotifAnnulation(?int $motifAnnulation): self
     {
-        $this->etatSortie = $etatSortie;
+        $this->motifAnnulation = $motifAnnulation;
 
         return $this;
     }

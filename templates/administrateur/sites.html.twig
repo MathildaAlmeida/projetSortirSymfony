@@ -27,20 +27,20 @@
                 </tr>
             </thead>
             <tbody>
-                {% for s in sites %}
-                    <tr>
-                        <td id="ville">  {{s.nomSite}}</td>
-                        <td> <a  class="btn btn-primary"> Modifier</a>
-                            <a onclick="return confirm('Supprimer :{{ s.nomSite }} ?')" href="{{ path('supprimer_site',{ id:s.id }) }}"  class="btn btn-danger del">Supprimer</a>
-                        </td>
-                    </tr>
-                {% endfor %}
                 <tr>
                     <form action="{{ path('ajout_rapide_site') }}" class="form-group form-control" method="POST">
                     <td><input type="text" name="nomSite" placeholder="un site" /></td>
                     <td><button type="submit" class="btn btn-success">Ajouter</button>
                  </form>
-                </tr>  
+                </tr> 
+                {% for s in sites %}
+                    <tr>
+                        <td id="ville">  {{s.nomSite}}</td>
+                        <td> <a  class="btn btn-primary" href="{{ path('modifier_site',{ id:s.id }) }}"> Modifier</a>
+                            <a onclick="return confirm('Supprimer :{{ s.nomSite }} ?')" href="{{ path('supprimer_site',{ id:s.id }) }}"  class="btn btn-danger del">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %} 
             </tbody>
         </table>
 		

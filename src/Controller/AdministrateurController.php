@@ -83,6 +83,28 @@ class AdministrateurController extends AbstractController
     }
 
     /**
+     * @Route("admin/ville/modifier/{id}", name="modifier_ville")
+     */
+    public function modifierVille(Villes $ville, EntityManagerInterface $em ): Response
+    {
+        
+        $em->flush();
+
+        return $this->redirectToRoute('villes');
+    }
+
+     /**
+     * @Route("admin/site/modifier/{id}", name="modifier_site")
+     */
+    public function modifierSite(Sites $site, EntityManagerInterface $em ): Response
+    {
+        
+        $em->flush();
+
+        return $this->redirectToRoute('sites');
+    }
+
+    /**
      * @Route("admin/ville/supprimer/{id}", name="supprimer_ville")
      */
     public function supprimerVille(Villes $ville, EntityManagerInterface $em ): Response
