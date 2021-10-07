@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SortieController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="title">Créer une Sortie</h1>
+            </div>
+        </div>
+        {{ form_start(formSortie) }}
+        <div class="row">
+            <div class="col-4">
+                <!--debut template -->
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">{{ form_label(formSortie.nom) }}</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(formSortie.nom,{'attr': {'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">{{ form_label(formSortie.dateDebut) }}</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(formSortie.dateDebut,{'attr': {'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">{{ form_label(formSortie.dateCloture) }}</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(formSortie.dateCloture,{'attr': {'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">{{ form_label(formSortie.duree) }}</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(formSortie.duree,{'attr': {'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">{{ form_label(formSortie.nbInscriptionMax) }}</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(formSortie.nbInscriptionMax,{'attr': {'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">{{ form_label(formSortie.descriptionInfos) }}</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(formSortie.descriptionInfos,{'attr': {'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">{{ form_label(formSortie.noLieu) }}</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(formSortie.noLieu,{'attr': {'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <!--fin template -->
+
+            </div>
+        </div>
+
+        {{ form_end(formSortie) }}
+    </div>
+{% endblock %}
