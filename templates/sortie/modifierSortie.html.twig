@@ -1,14 +1,85 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier une sortie{% endblock %}
+{% block title %}Hello SortieController!{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center" >
-		<h1> Modifier une sortie  </h1>
-    </div>
-    
-    
+    <div class="container">
+        <div class="justify-content-center">
+                <h1>Afficher une sortie</h1>
+        </div>
 
-    
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-6">
+                <!--debut template -->
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Nom de la sortie : </label>
+                    <div class="col-sm-8">
+                        {{ form_widget(form.nom) }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label"> Date et heure de la sortie</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(form.dateDebut) }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Date limite d'incription</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(form.dateCloture) }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Nombre de place : </label>
+                    <div class="col-sm-8">
+                        {{ form_widget(form.nbInscriptionMax) }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Durée : </label>
+                    <div class="col-sm-8">
+                        {{ form_widget(form.duree) }}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label"> Description et infos : </label>
+                    <div class="col-sm-8">
+                        {{ form_widget(form.descriptionInfos) }}
+                    </div>
+                </div>
+
+                <!--fin template -->
+
+            </div>
+            <div class="col-6">
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Ville organisatrice </label>
+                    <div class="col-sm-8">
+                        <strong class="form-control bg-light">{{ app.user.nosite.nomsite }}</strong>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">{{ form_label(form.noLieu) }}</label>
+                    <div class="col-sm-8">
+                        {{ form_widget(form.noLieu) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="gap-2 col-6 mx-auto">
+          <button type="submit" class="btn btn-lg btn-outline-dark" > Enregistrer</button>
+          <a  class="btn btn-lg btn-outline-dark"> Publier la sortie</a>
+          <a  href="{{ path('supprimer_site',{ id:sortie.id }) }}" class="btn btn-lg btn-outline-dark"> Supprimer la sortie</a>
+        
+          <a href="{{ path('accueil')}}" class="btn btn-lg btn-outline-dark">Annuler</a>
+		    </div>
+
+
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
 

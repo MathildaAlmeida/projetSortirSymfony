@@ -34,9 +34,7 @@ class ProfilController extends AbstractController
         $errors = $validator->validate($userCon);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($userCon->getTelephone() == null){
-                $userCon->setTelephone(null);
-            }
+            
             $userCon->setPassword( $passwordEncoder->encodePassword( $userCon,$userCon->getPassword() ));
 
             $userCon->setAdministrateur(0);
