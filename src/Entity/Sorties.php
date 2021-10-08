@@ -164,12 +164,12 @@ class Sorties
         return $this;
     }
 
-    public function getmotifAnnulation(): ?int
+    public function getmotifAnnulation(): ?string
     {
         return $this->motifAnnulation;
     }
 
-    public function setmotifAnnulation(?int $motifAnnulation): self
+    public function setmotifAnnulation(?string $motifAnnulation): self
     {
         $this->motifAnnulation = $motifAnnulation;
 

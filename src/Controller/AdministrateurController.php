@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\All;
 
 class AdministrateurController extends AbstractController
 {
@@ -27,13 +28,20 @@ class AdministrateurController extends AbstractController
     /**
      * @Route("/admin/villes", name="villes")
      */
-    public function ville(VillesRepository $villeRepo): Response
+    public function ville(VillesRepository $villeRepo, Request $request, EntityManagerInterface $em): Response
     {
 
         $ville = $villeRepo->findAll();
 
+        $valeur=$request->get('valeur');
+        
+        $villeRechercher = $villeRepo->findBy(['nomVille' => $valeur]);
+
+
         return $this->render('administrateur/villes.html.twig', [
-           'villes' => $ville
+           'villes' => $ville,
+           'valeur' => $valeur,
+            'villeFiltre' => $villeRechercher
         ]);
     }
 
@@ -85,12 +93,20 @@ class AdministrateurController extends AbstractController
     /**
      * @Route("admin/ville/modifier/{id}", name="modifier_ville")
      */
-    public function modifierVille(Villes $ville, EntityManagerInterface $em ): Response
+    public function modifierVille(Villes $ville, EntityManagerInterface $em,Request $request ): Response
     {
-        
+        //Recuperer données formulaire
+        $nomVille = $request->get('nomVille');
+        $codePostal = $request->get('codePostal');
+        $valider = $request->get('valider');
+        $ville->setNomVille($nomVille);
+        $ville->setCodePostal($codePostal);
+        $em->persist($ville);
         $em->flush();
 
-        return $this->redirectToRoute('villes');
+        return $this->redirectToRoute('villes', [
+            'valider' => $valider,
+        ]);
     }
 
      /**

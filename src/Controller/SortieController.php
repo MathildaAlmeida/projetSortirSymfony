@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Etats;
+use App\Entity\Inscriptions;
 use App\Entity\Sorties;
 use App\Form\SortieType;
+use App\Repository\EtatsRepository;
+use App\Repository\InscriptionsRepository;
 use App\Repository\SortiesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,30 +33,93 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/sortie/annuler/{id}", name="sortie_annuler")
+     * @Route("/sortie/afficher/{id}", name="sortie_afficher")
      */
-    public function annuler(Sorties $sortie ,SortiesRepository $sortiesRepository ,EntityManagerInterface  $em, Request $request): Response
+    public function sortieAfficher(Sorties $sortie, InscriptionsRepository $inscriptionsRepository, Request $req): Response
     {
+        $user = $this->getUser();
+        $listInscrit = $inscriptionsRepository->findBy([
+            'noParticipant' => $user->getId()
+        ]);
 
-        $id=$sortie->getId();
+        return $this->renderForm('sortie/afficherSortie.html.twig', [
+            'sortie' => $sortie,
+            'inscrits'  =>  $listInscrit,
+        ]);
+    }
 
-        $sorties= $sortiesRepository->findById($id);
+    /**
+     * @Route("/sortie/modifier/{id}", name="sortie_modifier")
+     */
+    public function sortieModifier(Sorties $sortie, EntityManagerInterface $em, Request $req): Response
+    {
+       
+        $form = $this->createForm(SortieType::class, $sortie);
+        $form->handleRequest($req);
 
-        $motif = $request->get("motif");
-        $sortie = new Sorties();
-        $sortie ->setmotifAnnulation($motif);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $em->persist($sortie);
+            $em->flush();
 
-        $etat= new Etats();
-        $etat->setLibelle('Annulée');
-        $sortie->setNoEtat($etat);
+            return $this->redirectToRoute('accueil');
+        }
 
-        $em->persist($etat);
-        $em->persist($sortie);
+        return $this->renderForm('sortie/modifierSortie.html.twig', [
+           'form' => $form,
+           'sortie' => $sortie
+        ]);
+    }
+
+    /**
+     * @Route("/sortie/supprimer/{id}", name="sortie_supprimer")
+     */
+    public function sortieSupprimer(Sorties $sortie,  Request $req, EntityManagerInterface $em): Response
+    {
+       
+        $em->remove($sortie);
         $em->flush();
 
+        return $this->redirectToRoute('accueil');
+    }
+
+
+    /**
+     * @Route("/sortie/annuler/{id}", name="sortie_annuler")
+     */
+    public function annuler(Sorties $sortie ,EtatsRepository $etatsRepository , SortiesRepository $sortiesRepository ,EntityManagerInterface  $em, Request $request): Response
+    {
+        
+        if ($request->isMethod('POST')) {
+
+            $motif = $request->get("motif");
+            $sortie ->setmotifAnnulation($motif);
+            $etat = $etatsRepository->find(6);
+        
+            $sortie->setNoEtat($etat); 
+    
+            $em->persist($sortie);
+            $em->flush();
+
+            return $this->redirectToRoute('accueil');
+        }
+                
+
         return $this->render('sortie/annulerSortie.html.twig', [
-           'sorties' => $sorties,
+           'sortie' => $sortie,
         ]);
+    }
+
+    /**
+     * @Route("/sortie/desister/{id}", name="sortie_se_desister")
+     */
+    public function seDesister(Sorties $sortie,Inscriptions $inscriptions,  Request $req, EntityManagerInterface $em): Response
+    {
+       
+        $em->remove($inscriptions);
+        $em->flush();
+
+        return $this->redirectToRoute('accueil');
     }
 
 }
