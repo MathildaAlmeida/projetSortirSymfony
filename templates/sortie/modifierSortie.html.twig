@@ -66,16 +66,28 @@
                         {{ form_widget(form.noLieu) }}
                     </div>
                 </div>
+                    <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Latitude : </label>
+                    <div class="col-sm-8">
+                        
+                    </div>
+                </div>
+                    <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Longitude : </label>
+                    <div class="col-sm-8">
+                        
+                    </div>
+                </div>
             </div>
 
         </div>
 
         <div class="gap-2 col-6 mx-auto">
-          <button type="submit" class="btn btn-lg btn-outline-dark" > Enregistrer</button>
-          <a  class="btn btn-lg btn-outline-dark"> Publier la sortie</a>
-          <a  href="{{ path('supprimer_site',{ id:sortie.id }) }}" class="btn btn-lg btn-outline-dark"> Supprimer la sortie</a>
+          <button type="submit" class="btn btn-sm btn-outline-dark" > Enregistrer</button>
+          <a  class="btn btn-sm btn-outline-dark"> Publier la sortie</a>
+          <a  href="{{ path('supprimer_site',{ id:sortie.id }) }}" class="btn btn-sm btn-outline-dark"> Supprimer la sortie</a>
         
-          <a href="{{ path('accueil')}}" class="btn btn-lg btn-outline-dark">Annuler</a>
+          <a href="{{ path('accueil')}}" class="btn btn-sm btn-outline-dark">Annuler</a>
 		    </div>
 
 

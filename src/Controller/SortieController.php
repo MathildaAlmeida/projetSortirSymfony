@@ -58,6 +58,7 @@ class SortieController extends AbstractController
 
         return $this->renderForm('sortie/modifierSortie.html.twig', [
            'form' => $form,
+           'sortie' => $sortie
         ]);
     }
 
