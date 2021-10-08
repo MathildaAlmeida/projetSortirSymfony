@@ -57,7 +57,18 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Organisateur: </label>
                     <div class="col-sm-8">
-                        <strong class="form-control bg-light">{{ app.user.nosite.nomsite }}</strong>
+                         <strong class="form-control bg-light">{{ app.user.nosite.nomsite }}</strong>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Ville : </label>
+                    <div class="col-sm-8">
+                        <select id="idville" class="form-control" onchange="lieux()">
+                            {% for ville in villes %}
+                                <option value="{{ ville.id }}">{{ ville.nomVille }} | {{ ville.codePostal }}</option>
+                            {% endfor %}
+                            <option value="azd">azd</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row mb-3">
