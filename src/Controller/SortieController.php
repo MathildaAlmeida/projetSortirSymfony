@@ -64,15 +64,13 @@ class SortieController extends AbstractController
     /**
      * @Route("/sortie/supprimer/{id}", name="sortie_supprimer")
      */
-    public function sortieSupprimer(Sorties $sortie,  Request $req): Response
+    public function sortieSupprimer(Sorties $sortie,  Request $req, EntityManagerInterface $em): Response
     {
        
-        $form = $this->createForm(SortieType::class, $sortie);
-        $form->handleRequest($req);
+        $em->remove($sortie);
+        $em->flush();
 
-        return $this->renderForm('sortie/modifierSortie.html.twig', [
-           'form' => $form,
-        ]);
+        return $this->redirectToRoute('accueil');
     }
 
 
