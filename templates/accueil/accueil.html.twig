@@ -99,7 +99,7 @@
                                     <td><a  class="btn btn-sm btn-outline-dark" href="{{ path('app_login') }}">Connection</a>aaa</td>
                                 {% endif %}
                                 <td><a class="btn btn-sm btn-outline-dark" href="{# todo #}">{{ sortie.organisateur.nom}}</a></td><!-- Organisateur -->
-                                <td> <a href="">Afficher</a>
+                                <td> <a href="{{ path('sortie_afficher',{ id:sortie.id }) }}">Afficher</a>
                                     {% if app.user %}
                                         {% if sortie.organisateur.pseudo == app.user.pseudo %}
                                             {% if sortie.noEtat.libelle == 'En création' or sortie.noEtat.libelle == 'Créer' %}

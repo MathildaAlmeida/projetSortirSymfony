@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Etats;
 use App\Entity\Sorties;
 use App\Form\SortieType;
+use App\Repository\EtatsRepository;
+use App\Repository\InscriptionsRepository;
 use App\Repository\SortiesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,17 +32,33 @@ class SortieController extends AbstractController
     }
 
     /**
+     * @Route("/sortie/afficher/{id}", name="sortie_afficher")
+     */
+    public function sortieAfficher(Sorties $sortie, InscriptionsRepository $inscriptionsRepository, Request $req): Response
+    {
+        $user = $this->getUser();
+        $listInscrit = $inscriptionsRepository->findBy([
+            'noParticipant' => $user->getId()
+        ]);
+
+        return $this->renderForm('sortie/afficherSortie.html.twig', [
+            'sortie' => $sortie,
+            'inscrits'  =>  $listInscrit,
+        ]);
+    }
+
+    /**
      * @Route("/sortie/annuler/{id}", name="sortie_annuler")
      */
-    public function annuler(Sorties $sortie ,SortiesRepository $sortiesRepository ,EntityManagerInterface  $em, Request $request): Response
+    public function annuler(Sorties $sortie ,EtatsRepository $etatsRepository , SortiesRepository $sortiesRepository ,EntityManagerInterface  $em, Request $request): Response
     {
         
         if ($request->isMethod('POST')) {
 
             $motif = $request->get("motif");
             $sortie ->setmotifAnnulation($motif);
-            $etat= new Etats();
-            $etat->setLibelle('Annulée');
+            $etat = $etatsRepository->find(6);
+        
             $sortie->setNoEtat($etat); 
     
             $em->persist($sortie);

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SortieController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+       
+            <div class="justify-content-center">
+                <h1>Afficher une sortie</h1>
+            </div>
+        
+        
+        <div class="infosSortie">
+            <p><strong> Nom de la sortie : </strong>  {{ sortie.nom }}</p> 
+            <p><strong> Date de la sortie : </strong>  {{ sortie.dateDebut|date("m/d/Y H:i:s") }}</p>
+            <p><strong> Date limite d'inscription: </strong>  {{ sortie.dateCloture|date("m/d/Y H:i:s") }}</p>
+            <p><strong> Nombre de place : </strong>  {{ sortie.nbInscriptionMax }}</p>
+            <p><strong> Durée :  </strong> {{ sortie.duree }}  minutes</p>
+            <p><strong> Description et infos :</strong>   {{ sortie.descriptionInfos }}</p>
+        </div>
+        <div class="infosVille">
+            <p> <strong> Ville organisatrice : </strong>  {{ sortie.organisateur.noSite.nomSite }}</p>
+            <p><strong> Lieu : </strong> {{ sortie.noLieu.nomLieu }} </p>
+             <p> <strong>Rue : </strong>{{ sortie.noLieu.rue }} </p>
+             <p> <strong>Code postal :</strong> {{ sortie.noLieu.noVille.codePostal }} </p>
+
+             <p><strong> Latitude : </strong> {{ sortie.noLieu.latitude }}</p>
+             <p><strong> Longitude : </strong> {{ sortie.noLieu.longitude }}</p>
+
+        </div>
+        <h3> Liste des participants : </h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Pseudo</th>
+                    <th scope="col">Nom</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inscrit in inscrits %}
+                    <tr>
+                        <td> {{ inscrit.noParticipant.pseudo}}  </td>
+                        <td> {{inscrit.noParticipant.nom}} </td>
+                    </tr>             
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

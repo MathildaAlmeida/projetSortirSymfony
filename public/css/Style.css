@@ -23,5 +23,13 @@
   }
 
 .divForm{
-  margin-left: 38%;
+  margin-left: 36%;
+}
+
+.infosSortie{
+  display: inline-block;
+}
+
+.infosVille{
+  display: inline-block;
 }
