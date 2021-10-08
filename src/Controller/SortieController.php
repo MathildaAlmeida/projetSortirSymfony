@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Etats;
+use App\Entity\Inscriptions;
 use App\Entity\Sorties;
 use App\Form\SortieType;
 use App\Repository\EtatsRepository;
@@ -50,11 +51,19 @@ class SortieController extends AbstractController
     /**
      * @Route("/sortie/modifier/{id}", name="sortie_modifier")
      */
-    public function sortieModifier(Sorties $sortie,  Request $req): Response
+    public function sortieModifier(Sorties $sortie, EntityManagerInterface $em, Request $req): Response
     {
        
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($req);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $em->persist($sortie);
+            $em->flush();
+
+            return $this->redirectToRoute('accueil');
+        }
 
         return $this->renderForm('sortie/modifierSortie.html.twig', [
            'form' => $form,
@@ -99,6 +108,18 @@ class SortieController extends AbstractController
         return $this->render('sortie/annulerSortie.html.twig', [
            'sortie' => $sortie,
         ]);
+    }
+
+    /**
+     * @Route("/sortie/desister/{id}", name="sortie_se_desister")
+     */
+    public function seDesister(Sorties $sortie,Inscriptions $inscriptions,  Request $req, EntityManagerInterface $em): Response
+    {
+       
+        $em->remove($inscriptions);
+        $em->flush();
+
+        return $this->redirectToRoute('accueil');
     }
 
 }

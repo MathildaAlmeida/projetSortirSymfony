@@ -108,11 +108,13 @@
                                                 - <a  href="{{ path('sortie_annuler',{ id:sortie.id }) }}">Annuler</a>
                                             {% endif %}
                                         {% else %}
-                                            {% if sortie.noEtat.libelle == 'Ouvert' and inscrit.noSortie == sortie%}
+                                        {% for inscrit in inscrits %}
+                                            {% if sortie.noEtat.libelle == 'Ouvert' and inscrit.noSortie == sortie %}
                                                 - <a href="" >Se désister</a>
                                             {% elseif sortie.noEtat.libelle == 'Ouvert' and inscrit.noSortie != sortie %}
                                                 - <a href="">S'inscrire</a>
                                             {% endif %}
+                                        {% endfor %}
                                         {% endif %}
                                     {% endif %}
                                 </td>
