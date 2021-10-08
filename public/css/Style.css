@@ -7,7 +7,7 @@
     background-color: grey;
     width: 300px;
     height: 300px;
-    margin-left: 6em;
+    margin-left: 0em;
   }
     
   .bloc::after {
@@ -23,5 +23,5 @@
   }
 
 .divForm{
-   margin-inline: 40em;
+  margin-left: 38%;
 }

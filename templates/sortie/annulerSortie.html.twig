@@ -9,14 +9,14 @@
 
     <div class="justify-content-center" >
 
-        {% for s in sorties %}
-            <p> Nom de la sortie :  {{ s.nom }}</p> 
-            <p> Date de la sortie :   {{ s.dateDebut|date("m/d/Y H:i:s") }}</p>
-            <p> Ville organisatrice :   {{ s.organisateur.noSite.nomSite }}</p>
-            <p> Lieu :  {{ s.noLieu.nomLieu }} {{ s.noLieu.rue }} {{ s.noLieu.noVille.codePostal }} {{ s.noLieu.noVille.nomVille }}</p>
+        
+            <p> Nom de la sortie :  {{ sortie.nom }}</p> 
+            <p> Date de la sortie :   {{ sortie.dateDebut|date("m/d/Y H:i:s") }}</p>
+            <p> Ville organisatrice :   {{ sortie.organisateur.noSite.nomSite }}</p>
+            <p> Lieu :  {{ sortie.noLieu.nomLieu }} {{ sortie.noLieu.rue }} {{ sortie.noLieu.noVille.codePostal }} {{ sortie.noLieu.noVille.nomVille }}</p>
         
 
-        <form action="{{ path('sortie_annuler',{ id:s.id }) }}"  method="POST">
+        <form action="{{ path('sortie_annuler',{ id:sortie.id }) }}"  method="POST">
 
         
 		    <p> Motif :</p> 
@@ -30,7 +30,6 @@
 		</div>
 
         </form>
-        {% endfor %}
     </div>
 
     

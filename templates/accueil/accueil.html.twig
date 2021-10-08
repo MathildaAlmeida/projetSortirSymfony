@@ -76,7 +76,7 @@
                     </tr>
                 {% else %}
                     {% for sortie in sorties %}
-                        {% if sortie.noEtat.libelle == 'En création' and sortie.organisateur != app.user  %}
+                        {% if sortie.noEtat.libelle == 'En création' or sortie.noEtat.libelle == 'Créer' and sortie.organisateur != app.user  %}
                         {% else %}
                             <tr>
                                 <td>{{ sortie.nom }}</td><!-- nom de la sortie -->
@@ -99,19 +99,19 @@
                                     <td><a  class="btn btn-sm btn-outline-dark" href="{{ path('app_login') }}">Connection</a>aaa</td>
                                 {% endif %}
                                 <td><a class="btn btn-sm btn-outline-dark" href="{# todo #}">{{ sortie.organisateur.nom}}</a></td><!-- Organisateur -->
-                                <td>Afficher
+                                <td> <a href="">Afficher</a>
                                     {% if app.user %}
                                         {% if sortie.organisateur.pseudo == app.user.pseudo %}
-                                            {% if sortie.noEtat.libelle == 'En création' %}
-                                                - <a>modifier</a> - <a>Publier</a>
+                                            {% if sortie.noEtat.libelle == 'En création' or sortie.noEtat.libelle == 'Créer' %}
+                                                - <a href="">modifier</a> - <a href="">Publier</a>
                                             {% elseif sortie.noEtat.libelle == 'Ouvert' %}
                                                 - <a  href="{{ path('sortie_annuler',{ id:sortie.id }) }}">Annuler</a>
                                             {% endif %}
                                         {% else %}
                                             {% if sortie.noEtat.libelle == 'Ouvert' and inscrit.noSortie == sortie%}
-                                                - <a>Se désister</a>
+                                                - <a href="" >Se désister</a>
                                             {% elseif sortie.noEtat.libelle == 'Ouvert' and inscrit.noSortie != sortie %}
-                                                - <a>S'inscrire</a>
+                                                - <a href="">S'inscrire</a>
                                             {% endif %}
                                         {% endif %}
                                     {% endif %}

@@ -34,25 +34,24 @@ class SortieController extends AbstractController
      */
     public function annuler(Sorties $sortie ,SortiesRepository $sortiesRepository ,EntityManagerInterface  $em, Request $request): Response
     {
+        
+        if ($request->isMethod('POST')) {
 
-        $id=$sortie->getId();
+            $motif = $request->get("motif");
+            $sortie ->setmotifAnnulation($motif);
+            $etat= new Etats();
+            $etat->setLibelle('Annulée');
+            $sortie->setNoEtat($etat); 
+    
+            $em->persist($sortie);
+            $em->flush();
 
-        $sorties= $sortiesRepository->findById($id);
-
-        $motif = $request->get("motif");
-        $sortie = new Sorties();
-        $sortie ->setmotifAnnulation($motif);
-
-        $etat= new Etats();
-        $etat->setLibelle('Annulée');
-        $sortie->setNoEtat($etat);
-
-        $em->persist($etat);
-        $em->persist($sortie);
-        $em->flush();
+            return $this->redirectToRoute('accueil');
+        }
+                
 
         return $this->render('sortie/annulerSortie.html.twig', [
-           'sorties' => $sorties,
+           'sortie' => $sortie,
         ]);
     }
 
