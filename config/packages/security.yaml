@@ -27,7 +27,8 @@ security:
       remember_me:
         secret: "%kernel.secret%"
         lifetime: 604800 # 1 week in seconds
-        path: app_login
+        path: /
+        #token_provider: 'Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider'
 
         # where to redirect after logout
         # target: app_any_route
