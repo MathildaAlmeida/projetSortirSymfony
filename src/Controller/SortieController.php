@@ -9,12 +9,12 @@ use App\Form\SortieType;
 use App\Repository\EtatsRepository;
 use App\Repository\InscriptionsRepository;
 use App\Repository\SortiesRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Config\Doctrine\Orm\EntityManagerConfig;
 
 class SortieController extends AbstractController
 {
@@ -33,13 +33,50 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/sortie/afficher/{id}", name="sortie_afficher")
+     * @Route("/sortie/inscrire/{id}", name="sortie_inscrire" , methods={"GET","POST"})
+     */
+    public function sInscrire(Sorties $sortie, EntityManagerInterface $em): Response
+    {
+        $inscriptions = new Inscriptions();
+        
+        $inscriptions->setDateInscription((new \DateTime()));
+        $user = $this->getUser();
+        $inscriptions->setNoParticipant($user);
+        $inscriptions->setNoSortie($sortie);
+        
+        $em->persist($inscriptions);
+        $em->flush();
+
+        return $this->redirectToRoute('accueil');
+    }
+
+    /**
+     * @Route("/sortie/desister/{id}", name="sortie_desister" , methods={"GET","POST"})
+     */
+    public function seDesister(Sorties $sortie, InscriptionsRepository $inscriptionsRepository  ,Request $req, EntityManagerInterface $em): Response
+    {
+        $inscriptions = new Inscriptions();
+
+        $inscriptions = $inscriptionsRepository->findBy([
+            'noSortie' => $sortie,
+            'noParticipant'=> $this->getUser()
+        ]);
+        
+        $em->remove($inscriptions);
+        $em->flush();
+
+        return $this->redirectToRoute('accueil');
+    }
+
+    /**
+     * @Route("/sortie/afficher/{id}", name="sortie_afficher" , methods={"GET","POST"})
      */
     public function sortieAfficher(Sorties $sortie, InscriptionsRepository $inscriptionsRepository, Request $req): Response
     {
-        $user = $this->getUser();
+        
+        $id = $sortie->getId();
         $listInscrit = $inscriptionsRepository->findBy([
-            'noParticipant' => $user->getId()
+            'noSortie'=> $id
         ]);
 
         return $this->renderForm('sortie/afficherSortie.html.twig', [
@@ -49,7 +86,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/sortie/modifier/{id}", name="sortie_modifier")
+     * @Route("/sortie/modifier/{id}", name="sortie_modifier" , methods={"GET","POST"})
      */
     public function sortieModifier(Sorties $sortie, EntityManagerInterface $em, Request $req): Response
     {
@@ -72,11 +109,10 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/sortie/supprimer/{id}", name="sortie_supprimer")
+     * @Route("/sortie/supprimer/{id}", name="sortie_supprimer" , methods={"GET","POST"})
      */
     public function sortieSupprimer(Sorties $sortie,  Request $req, EntityManagerInterface $em): Response
-    {
-       
+    {       
         $em->remove($sortie);
         $em->flush();
 
@@ -85,7 +121,7 @@ class SortieController extends AbstractController
 
 
     /**
-     * @Route("/sortie/annuler/{id}", name="sortie_annuler")
+     * @Route("/sortie/annuler/{id}", name="sortie_annuler" , methods={"GET","POST"})
      */
     public function annuler(Sorties $sortie ,EtatsRepository $etatsRepository , SortiesRepository $sortiesRepository ,EntityManagerInterface  $em, Request $request): Response
     {
@@ -102,24 +138,11 @@ class SortieController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('accueil');
-        }
-                
+        }                
 
         return $this->render('sortie/annulerSortie.html.twig', [
            'sortie' => $sortie,
         ]);
-    }
-
-    /**
-     * @Route("/sortie/desister/{id}", name="sortie_se_desister")
-     */
-    public function seDesister(Sorties $sortie,Inscriptions $inscriptions,  Request $req, EntityManagerInterface $em): Response
-    {
-       
-        $em->remove($inscriptions);
-        $em->flush();
-
-        return $this->redirectToRoute('accueil');
     }
 
 }
