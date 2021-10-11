@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Lieux;
 use App\Entity\Sorties;
 use App\Entity\User;
+use App\Repository\LieuxRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -40,15 +41,17 @@ class SortieType extends AbstractType
                 'label' => 'Nombre de place : '
             ])
             ->add('descriptionInfos',TextareaType::class,[
-                'label' => 'Description : '
+                'label' => 'Description : ',
+                'required' => false
                 ])
             ->add('noLieu', EntityType::class, array(
                 'class'=> Lieux::class,
                 'label'=> 'lieux : ',
-                'choice_label'  =>function($organisateur){
-                    return $organisateur->getNomLieu();
+                'choice_label'  =>function($Lieux){
+                     return $Lieux->getNomLieu();
                 }
-            ));
+            ))
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
