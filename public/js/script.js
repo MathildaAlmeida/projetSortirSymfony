@@ -21,10 +21,9 @@ function lieux()
                 newOption.innerText = nomlieu;
                 DivOption.add(newOption)
             }
-
-
+            infoslieux()
         })
-    infoslieux()
+
 }
 function infoslieux(){
     select = document.getElementById("sortie_noLieu");
