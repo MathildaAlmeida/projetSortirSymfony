@@ -91,25 +91,22 @@
                                         {% else %}
                                             <td>X</td>
                                         {% endif %}
-                                    {% endfor %}
-                                    {% if inscrits is empty %}
-                                        <td></td>
-                                    {% endif %}
+                                    {% endfor %}                                   
                                 {% else %}
                                     <td><a  class="btn btn-sm btn-outline-dark" href="{{ path('app_login') }}">Connection</a></td>
                                 {% endif %}
                                 <td><a class="btn btn-sm btn-outline-dark" href="{# todo #}">{{ sortie.organisateur.nom}}</a></td><!-- Organisateur -->
                                 <td> <a href="{{ path('sortie_afficher',{ id:sortie.id }) }}">Afficher</a> 
                                 {% if app.user %}
-                                    
-                                            {% if sortie.noEtat.libelle == 'Ouvert' %}
-                                                {% if inscrits is empty %}
-                                                    - <a href="{{ path('sortie_inscrire',{ id:sortie.id }) }}">S'inscrire</a>
-                                                {%  else %}
+                                    {% for inscrit in inscrits %}
+                                        {% if sortie.noEtat.libelle == 'Ouvert' %}
+                                            {% if inscrit.noSortie != sortie  %}
+                                                - <a href="{{ path('sortie_inscrire',{ id:sortie.id }) }}">S'inscrire</a>
+                                            {%  else %}
                                                 - <a href="{{ path('sortie_desister',{ id:sortie.id }) }}" >Se désister</a>                                            
-                                                {% endif %}
                                             {% endif %}
-                                    
+                                        {% endif %} 
+                                    {% endfor %}                                   
                                 {% endif %}
                                     {% if app.user %}
                                         {% if sortie.organisateur.pseudo == app.user.pseudo %}
