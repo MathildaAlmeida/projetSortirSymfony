@@ -98,7 +98,7 @@ class SortieController extends AbstractController
     {
         $inscriptions = new Inscriptions();
 
-        $inscriptions = $inscriptionsRepository->findBy([
+        $inscriptions = $inscriptionsRepository->findOneBy([
             'noSortie' => $sortie,
             'noParticipant'=> $this->getUser()
         ]);
