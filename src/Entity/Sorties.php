@@ -6,6 +6,8 @@ use App\Repository\SortiesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=SortiesRepository::class)
@@ -22,6 +24,7 @@ class Sorties
     /**
      * @ORM\Column(type="string", length=30)
      */
+
     private $nom;
 
     /**
@@ -46,6 +49,10 @@ class Sorties
 
     /**
      * @ORM\Column(type="string", length=500, nullable=true)
+     * @Assert\Regex(
+     * pattern = "/[^\r\n]+((\r|\n|\r\n)[^\r\n]+)/",
+     * match=true,
+     * message="la description n'est pas au bon format")
      */
     private $descriptionInfos;
 

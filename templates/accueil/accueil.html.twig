@@ -18,7 +18,7 @@
             <div class="col-6">
                 <div class="row">
                     <label for="cbx_Site">Site : </label>
-                    <select class="form-select">
+                    <select class="form-select" name="cbx_Site">
                         {% for site in sites %}
                             <option value="{{ site.id }}">{{ site.nomSite }}</option>
                         {% endfor %}
