@@ -42,8 +42,15 @@ class SortieController extends AbstractController
         $formLieux->handleRequest($req);
         $formSortie->handleRequest($req);
         if ($formSortie->isSubmitted() && $formSortie->isValid()) {
+
+
             $sortie->setOrganisateur($this->getUser());
-            $etat = $er->findOneBy(['libelle' => 'En création']);
+            if($_POST['btn-publier'] == 1){
+                $etat = $er->findOneBy(['libelle' => 'Ouverte']);
+
+            }else{
+                $etat = $er->findOneBy(['libelle' => 'Créée']);
+            }
             $sortie->setNoEtat($etat);
             $em->persist($sortie);
             $em->flush();
