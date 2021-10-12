@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ProfilFormType;
+use App\Repository\UserRepository;
 use App\Security\LoginFormAuthentificatorAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -81,6 +82,17 @@ class ProfilController extends AbstractController
         return $this->renderForm('profil/inscription.html.twig', [
             'form' => $form,
             'errors' => $errors
+        ]);
+    }
+
+    /**
+     * @Route("/profilParticipant/{id}", name="profil_participant",  methods={"GET","POST"})
+     */
+    public function profilParticipant(User $participant): Response
+    {
+
+        return $this->renderForm('profil/profilParticipant.html.twig', [
+            'participant' => $participant,
         ]);
     }
 }
