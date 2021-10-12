@@ -46,7 +46,7 @@ class SortieType extends AbstractType
                 ])
             ->add('noLieu', EntityType::class, array(
                 'class'=> Lieux::class,
-                'label'=> 'lieux : ',
+                'label'=> 'Lieux : ',
                 'choice_label'  =>function($Lieux){
                      return $Lieux->getNomLieu();
                 }
