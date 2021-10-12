@@ -110,7 +110,7 @@ class SortieController extends AbstractController
     {
         $inscriptions = new Inscriptions();
 
-        $inscriptions = $inscriptionsRepository->findBy([
+        $inscriptions = $inscriptionsRepository->findOneBy([
             'noSortie' => $sortie,
             'noParticipant'=> $this->getUser()
         ]);
@@ -141,8 +141,10 @@ class SortieController extends AbstractController
     /**
      * @Route("/sortie/modifier/{id}", name="sortie_modifier" , methods={"GET","POST"})
      */
-    public function sortieModifier(Sorties $sortie, EntityManagerInterface $em, Request $req): Response
+    public function sortieModifier(Sorties $sortie, EntityManagerInterface $em, Request $req,VillesRepository $vr): Response
     {
+        
+        $villes = $vr->findAll();
 
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($req);
@@ -157,7 +159,8 @@ class SortieController extends AbstractController
 
         return $this->renderForm('sortie/modifierSortie.html.twig', [
            'form' => $form,
-           'sortie' => $sortie
+           'sortie' => $sortie,
+           'villes' => $villes
         ]);
     }
 
