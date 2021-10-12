@@ -33,7 +33,7 @@ class AcceuilController extends AbstractController
                 ]
             );
         }
-        dd($inscrits);
+        
 
         return $this->render('accueil/accueil.html.twig', [
             'sorties'   =>  $sorties,
