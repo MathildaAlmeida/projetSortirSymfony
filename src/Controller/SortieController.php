@@ -7,6 +7,7 @@ use App\Entity\Inscriptions;
 use App\Entity\Lieux;
 use App\Entity\Sorties;
 use App\Entity\Villes;
+use App\Form\AddLieuxType;
 use App\Form\SortieType;
 use App\Repository\LieuxRepository;
 use App\Repository\EtatsRepository;
@@ -32,11 +33,15 @@ class SortieController extends AbstractController
     public function sortieAjout(EntityManagerInterface $em,VillesRepository $vr,Request $req, EtatsRepository $er): Response
     {
         $sortie = new Sorties();
+        $lieux = new Lieux();
+
         $formSortie = $this->createForm(SortieType::class, $sortie);
+        $formLieux = $this->createForm(AddLieuxType::class, $lieux);
+
         $villes = $vr->findAll();
+        $formLieux->handleRequest($req);
         $formSortie->handleRequest($req);
         if ($formSortie->isSubmitted() && $formSortie->isValid()) {
-
             $sortie->setOrganisateur($this->getUser());
             $etat = $er->findOneBy(['libelle' => 'En création']);
             $sortie->setNoEtat($etat);
@@ -46,8 +51,15 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('accueil');
         }
 
+
+        if($formLieux->isSubmitted() && $formLieux->isValid()){
+            $em->persist($lieux);
+            $em->flush();
+        }
+
         return $this->renderForm('sortie/ajoutsortie.html.twig', [
             'formSortie' => $formSortie,
+            'formLieux' => $formLieux,
             'villes' => $villes
         ]);
     }

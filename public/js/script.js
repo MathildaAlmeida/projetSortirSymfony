@@ -5,6 +5,7 @@ function lieux()
     select = document.getElementById("idville");
     choix = select.selectedIndex;
     valeur = select.options[choix].value;
+
     axios
         .get('http://127.0.0.1:8000/lieux_ville/'+valeur)
         .then(response => {
@@ -23,7 +24,6 @@ function lieux()
             }
             infoslieux()
         })
-
 }
 function infoslieux(){
     select = document.getElementById("sortie_noLieu");
