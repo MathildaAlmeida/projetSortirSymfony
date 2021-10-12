@@ -46,10 +46,10 @@ class SortieController extends AbstractController
 
             $sortie->setOrganisateur($this->getUser());
             if($_POST['btn-publier'] == 1){
-                $etat = $er->findOneBy(['libelle' => 'Ouverte']);
+                $etat = $er->findOneBy(['libelle' => 'Ouvert']);
 
             }else{
-                $etat = $er->findOneBy(['libelle' => 'Créée']);
+                $etat = $er->findOneBy(['libelle' => 'Créer']);
             }
             $sortie->setNoEtat($etat);
             $em->persist($sortie);
