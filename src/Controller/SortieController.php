@@ -202,4 +202,18 @@ class SortieController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/sortie/publier/{id}", name="sortie_publier" , methods={"GET","POST"})
+     */
+    public function publier(Sorties $sortie, EntityManagerInterface $em, EtatsRepository $etatsRepository): Response
+    {
+        $etat = $etatsRepository->findOneBy(['libelle' => 'Ouvert']);
+        $sortie->setNoEtat($etat);
+        
+        $em->persist($sortie);
+        $em->flush();
+
+        return $this->redirectToRoute('accueil');
+    }
+
 }

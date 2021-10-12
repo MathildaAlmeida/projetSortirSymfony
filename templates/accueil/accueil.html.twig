@@ -111,7 +111,7 @@
                                     {% if app.user %}
                                         {% if sortie.organisateur.pseudo == app.user.pseudo or app.user.administrateur == 1 %}
                                             {% if sortie.noEtat.libelle == 'En création' or sortie.noEtat.libelle == 'Créer' %}
-                                                - <a href="{{ path('sortie_modifier',{ id:sortie.id }) }}">Modifier</a> - <a href="">Publier</a>
+                                                - <a href="{{ path('sortie_modifier',{ id:sortie.id }) }}">Modifier</a> - <a href="{{ path('sortie_publier',{ id:sortie.id }) }}">Publier</a>
                                             {% elseif sortie.noEtat.libelle == 'Ouvert' %}
                                                 - <a  href="{{ path('sortie_annuler',{ id:sortie.id }) }}">Annuler</a>
                                             {% endif %}
