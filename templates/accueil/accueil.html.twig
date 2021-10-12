@@ -84,28 +84,30 @@
                                 <td>{{ sortie.dateCloture|date('j-m-Y') }}</td><!-- cloture-->
                                 <td>/{{ sortie.nbInscriptionMax }}</td><!-- inscrit/places -->
                                 <td>{{ sortie.noEtat.libelle }}</td><!-- Etat -->
+                                <td>
                                 {% if app.user %}
                                     {% for inscrit in inscrits %}
                                         {% if inscrit.noSortie != sortie  %}
-                                            <td></td>
+                                            <p></p>
                                         {% else %}
-                                            <td>X</td>
+                                            <p>X</p>
                                         {% endif %}
                                     {% endfor %}                                   
                                 {% else %}
-                                    <td><a  class="btn btn-sm btn-outline-dark" href="{{ path('app_login') }}">Connection</a></td>
+                                    <a class="btn btn-sm btn-outline-dark" href="{{ path('app_login') }}">Connection</a>
                                 {% endif %}
+                                </td>
                                 <td><a name="participant" class="btn btn-sm btn-outline-dark" href="{{ path('profil_participant',{ id : sortie.organisateur.id}) }}" >{{ sortie.organisateur.nom}}</a></td><!-- Organisateur -->                                
                                 <td> <a href="{{ path('sortie_afficher',{ id:sortie.id }) }}">Afficher</a> 
-                                {% if app.user %}
-                                    {% for inscrit in inscrits %}
-                                        {% if sortie.noEtat.libelle == 'Ouvert' %}
+                                {% if sortie.noEtat.libelle == 'Ouvert' %}
+                                   {% for inscrit in inscrits %}
+                                        
                                             {% if inscrit.noSortie != sortie  %}
-                                                - <a href="{{ path('sortie_inscrire',{ id:sortie.id }) }}">S'inscrire</a>
+                                                - <a href="{{ path('sortie_inscrire',{ id:sortie.id }) }}">S'inscrire </a>
                                             {%  else %}
                                                 - <a href="{{ path('sortie_desister',{ id:sortie.id }) }}" >Se désister</a>                                            
                                             {% endif %}
-                                        {% endif %} 
+                                         
                                     {% endfor %}                                   
                                 {% endif %}
                                     {% if app.user %}
