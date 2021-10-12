@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Sorties;
 use App\Repository\EtatsRepository;
 use App\Repository\InscriptionsRepository;
 use App\Repository\SitesRepository;
 use App\Repository\SortiesRepository;
+use App\Repository\UserRepository;
 use http\Client\Curl\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +18,7 @@ class AcceuilController extends AbstractController
     /**
      * @Route("/", name="accueil")
      */
-    public function accueil(EtatsRepository $repoEtat,SortiesRepository $repoSortie, SitesRepository $repoSite, InscriptionsRepository  $repoInscrit): Response
+    public function accueil(UserRepository $userRepository,EtatsRepository $repoEtat,SortiesRepository $repoSortie, SitesRepository $repoSite, InscriptionsRepository  $repoInscrit): Response
     {
         $sorties    = $repoSortie->findAll();
         $sites      = $repoSite->findAll();
@@ -31,6 +33,7 @@ class AcceuilController extends AbstractController
                 ]
             );
         }
+ 
 
         return $this->render('accueil/accueil.html.twig', [
             'sorties'   =>  $sorties,

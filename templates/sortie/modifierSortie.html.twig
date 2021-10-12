@@ -106,8 +106,8 @@
     
         <div class="gap-2 col-6 mx-auto">
           <button type="submit" class="btn btn-sm btn-primary" > Enregistrer</button>
-          <a  class="btn btn-sm btn-primary"> Publier la sortie</a>
-          <a  href="{{ path('supprimer_site',{ id:sortie.id }) }}" class="btn btn-sm btn-primary"> Supprimer la sortie</a>        
+          <a href="{{ path('sortie_publier',{ id:sortie.id }) }}" class="btn btn-sm btn-primary"> Publier la sortie</a>
+          <a  href="{{ path('sortie_supprimer',{ id:sortie.id }) }}" class="btn btn-sm btn-primary"> Supprimer la sortie</a>        
           <a href="{{ path('accueil')}}" class="btn btn-sm btn-primary">Annuler</a>
 		</div>
 

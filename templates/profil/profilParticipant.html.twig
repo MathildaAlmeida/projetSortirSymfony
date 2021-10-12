@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+<div class="container">
+	
+		<div class="justify-content-center">
+			<h1 >Profil de : {{ participant.pseudo}}</h1>
+		</div>
+	<hr>
+    
+            <p><strong> Nom  : </strong>   {{ participant.nom}}</p> 
+            <p><strong> Prenom : </strong> {{ participant.prenom}}  </p>
+            {% if app.user.administrateur == 1 %}
+            <p><strong> Téléphone : </strong> {{ participant.telephone}} </p>
+            <p><strong> E-mail: </strong> {{ participant.email}} </p>
+            {% endif %}
+            <p><strong>Ville de rattachement :  </strong> {{ participant.noSite.nomSite}} </p>
+   
+    <a href="{{ path('accueil')}}" class="btn btn-sm  btn-primary">Retour</a>
+    
+</div>
+
+{% endblock %}
