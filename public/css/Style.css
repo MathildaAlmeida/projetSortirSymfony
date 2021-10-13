@@ -34,3 +34,9 @@
   display: inline-block;
 }
 .obligatoire {color: red;}
+
+@media screen and (max-width: 840px) {
+    .image {
+        display: none;
+    }
+}
