@@ -101,26 +101,26 @@
                                 <td> <a href="{{ path('sortie_afficher',{ id:sortie.id }) }}">Afficher</a> 
                                 {% if app.user %}
                                     {% if sortie.noEtat.libelle == 'Ouvert' %}
-                                        {% for inscrit in inscrits %}
-                                            
-                                                {% if inscrit.noSortie != sortie  %}
+                                    {% if inscrits is empty %}
+                                        - <a href="{{ path('sortie_inscrire',{ id:sortie.id }) }}">S'inscrire </a>
+                                    {% endif %}
+                                        {% for inscrit in inscrits %}                                            
+                                                {% if inscrit.noSortie.id != sortie.id  %}
                                                     - <a href="{{ path('sortie_inscrire',{ id:sortie.id }) }}">S'inscrire </a>
                                                 {%  else %}
                                                     - <a href="{{ path('sortie_desister',{ id:sortie.id }) }}" >Se désister</a>                                            
                                                 {% endif %}
                                             
                                         {% endfor %}                                   
-                                    {% endif %}
-                                {% endif %}
-                                    {% if app.user %}
-                                        {% if sortie.organisateur.pseudo == app.user.pseudo or app.user.administrateur == 1 %}
+                                    {% endif %}                                
+                                    {% if sortie.organisateur.pseudo == app.user.pseudo or app.user.administrateur == 1 %}
                                             {% if  sortie.noEtat.libelle == 'Créer' %}
                                                 - <a href="{{ path('sortie_modifier',{ id:sortie.id }) }}">Modifier</a> - <a href="{{ path('sortie_publier',{ id:sortie.id }) }}">Publier</a>
                                             {% elseif sortie.noEtat.libelle == 'Ouvert' %}
                                                 - <a  href="{{ path('sortie_annuler',{ id:sortie.id }) }}">Annuler</a>
                                             {% endif %}
-                                        {% endif %}
                                     {% endif %}
+                                {% endif %}
                                 </td>
                             </tr>
                         {% endif %}
