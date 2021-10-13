@@ -3,67 +3,76 @@
 {% block title %}Les villes{% endblock %}
 
 {% block body %}
-    
-	<div class="d-flex justify-content-center" >
-	
-        <h1> Gérer les villes  </h1>
-    </div>
+    <div class="container">
+        <div class="d-flex justify-content-center" >
 
-    <h2>Filtrer les villes </h2>
-        
-        <nav class="navbar navbar-light bg-light">
+            <h1> Gérer les villes  </h1>
+        </div>
+
+        <h3>Filtrer les villes </h3>
+
+        <nav class="bg-light">
             <form class="form-inline" action="{{ path('villes') }}">
-                <p> Le nom contient : </p>
-                <input class="form-control mr-sm-2" type="search" name="valeur" placeholder="Rechercher" aria-label="Rechercher">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="rechercher">Rechercher</button> 
+                <div class="row">
+                    <div class="col-2">
+                        <p> Le nom contient : </p>
+                    </div>
+                    <div class="col">
+                        <input class="form-control mr-sm-2" type="search" name="valeur" placeholder="Rechercher" aria-label="Rechercher">
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="rechercher">Rechercher</button>
+                    </div>
+                </div>
             </form>
         </nav>
 
         <div class="d-flex justify-content-center" >
-         <table class="table table-striped">
-            <thead>
+            <table class="table table-striped">
+                <thead>
                 <tr>
                     <th scope="col">Villes</th>
                     <th scope="col">Code Postal</th>
                     <th scope="col">Actions</th>
                 </tr>
-            </thead>
-            <tbody>
-               <tr>
-                 <form action="{{ path('ajout_rapide_ville') }}" class="form-group form-control" method="POST">
-                    <td><input type="text" name="nomVille" placeholder="une ville" /></td>
-                    <td><input type="text" name="codePostal" placeholder="un code postal"/></td>
-                    <td><button type="submit" class="btn btn-success">Ajouter</button>
-                 </form>
+                </thead>
+                <tbody>
+                <tr>
+                    <form action="{{ path('ajout_rapide_ville') }}" class="form-group form-control" method="POST">
+                        <td><input type="text" name="nomVille" placeholder="une ville" /></td>
+                        <td><input type="text" name="codePostal" placeholder="un code postal"/></td>
+                        <td><button type="submit" class="btn btn-success">Ajouter</button>
+                    </form>
                 </tr>
                 {% if  valeur is empty%}
-                {% for v in villes %}
-                    <tr>
-                        <td id="ville">  {{v.nomVille}}</td>
-                        <td> {{ v.codePostal}}</td>
-                        <td> <a  class="btn btn-primary" href="{{ path('modifier_ville',{ id:v.id }) }}"> Modifier</a>
-                            <a onclick="return confirm('Supprimer :{{ v.nomVille }} ?')" href="{{ path('supprimer_ville',{ id:v.id }) }}"  class="btn btn-danger del">Supprimer</a>
-                        </td>
-                    </tr>
-                {% endfor %}
+                    {% for v in villes %}
+                        <tr>
+                            <td id="ville">  {{v.nomVille}}</td>
+                            <td> {{ v.codePostal}}</td>
+                            <td> <a  class="btn btn-primary" href="{{ path('modifier_ville',{ id:v.id }) }}"> Modifier</a>
+                                <a onclick="return confirm('Supprimer :{{ v.nomVille }} ?')" href="{{ path('supprimer_ville',{ id:v.id }) }}"  class="btn btn-danger del">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
                 {% else %}
                     {% for v in villes %}
-                    <tr>
-                        <td id="ville">  {{v.nomVille}}</td>
-                        <td> {{ v.codePostal}}</td>
-                        <td> <a  class="btn btn-primary" href="{{ path('modifier_ville',{ id:v.id }) }}"> Modifier</a>
-                            <a onclick="return confirm('Supprimer :{{ v.nomVille }} ?')" href="{{ path('supprimer_ville',{ id:v.id }) }}"  class="btn btn-danger del">Supprimer</a>
-                        </td>
-                    </tr>
-                {% endfor %}
+                        <tr>
+                            <td id="ville">  {{v.nomVille}}</td>
+                            <td> {{ v.codePostal}}</td>
+                            <td> <a  class="btn btn-primary" href="{{ path('modifier_ville',{ id:v.id }) }}"> Modifier</a>
+                                <a onclick="return confirm('Supprimer :{{ v.nomVille }} ?')" href="{{ path('supprimer_ville',{ id:v.id }) }}"  class="btn btn-danger del">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
                 {% endif %}
-                
-  
-            </tbody>
-        </table>
 
 
-        
-		
+                </tbody>
+            </table>
+
+
+
+
+        </div>
     </div>
 {% endblock %}

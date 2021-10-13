@@ -3,64 +3,78 @@
 {% block title %}S'inscrire{% endblock %}
 
 {% block body %}
-	<div class="d-flex justify-content-center" >
-		
-		 {{ form_start(form) }}
-        <h1> Créer un utilisateur  </h1>
-		{% for error in errors %}
-			<div class="alert alert-danger">
-			
-				{{ error.message }}
-			
+	<div class="container">
+		<div class="justify-content-center" >
+			{{ form_start(form) }}
+			<div class="col text-center">
+				<h1 class="title"> Créer un utilisateur  </h1>
 			</div>
-		{% endfor %}
-		<div class="form-group row" >
-		
-			<label class="col-sm-2 col-form-label" >Pseudo : * </label>
-  			<div class="col-sm-10">{{ form_widget(form.pseudo) }}	</div>
-  			
-  			<label class="col-sm-2 col-form-label" > Nom : * </label>
-  			<div class="col-sm-10">{{ form_widget(form.nom) }}</div>
-			
+
+			{% for error in errors %}
+				<div class="alert alert-danger">
+
+					{{ error.message }}
+
+				</div>
+			{% endfor %}
+			<div class="row" >
+				<div class="col-6">
+					<div class="mb-3">
+						<label class="form-label" >Pseudo : <span class="obligatoire">*</span></label>
+						{{ form_widget(form.pseudo,{'attr':{'class':'form-control'}}) }}
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label" >Nom : <span class="obligatoire">*</span></label>
+						{{ form_widget(form.nom,{'attr':{'class':'form-control'}}) }}
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label" >Prénom : <span class="obligatoire">*</span></label>
+						{{ form_widget(form.prenom,{'attr':{'class':'form-control'}}) }}
+					</div>
+				</div>
+				<div class="col-6">
+
+					<div class="mb-3">
+						<label class="form-label" >Email : <span class="obligatoire">*</span></label>
+						{{ form_widget(form.email,{'attr':{'class':'form-control'}}) }}
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label" >Téléphone : </label>
+						{{ form_widget(form.telephone,{'attr':{'class':'form-control'}}) }}
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label" >Site de rattachement : <span class="obligatoire">*</span></label>
+						{{ form_widget(form.noSite,{'attr':{'class':'form-control'}}) }}
+					</div>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label"> {{form_label(form.password.first)}} <span class="obligatoire">*</span></label>
+					{{ form_widget(form.password.first,{'attr':{'class':'form-control'}}) }}
+				</div>
+				<div class="mb-3">
+					<label class="form-label">{{form_label(form.password.second)}} <span class="obligatoire">*</span></label>
+					{{ form_widget(form.password.second,{'attr':{'class':'form-control'}}) }}
+				</div>
+
+
+			</div>
+			<p> <span class="obligatoire">*</span> Champs obligatoires </p>
+
+			<div class="row">
+				<div class="col text-center">
+					<button type="submit" class="btn btn-lg btn-primary" > S'inscrire</button>
+
+					<a href="{{ path('accueil')}}" class="btn btn-lg btn-secondary">Annuler</a>
+				</div>
+			</div>
+
 		</div>
-		
-		<div class=" form-group row">
-		
-			<label class="col-sm-2 col-form-label"> Prénom : *</label>
-  			<div class="col-sm-10">{{ form_widget(form.prenom) }}</div>
-			
-			<label class="col-sm-2 col-form-label" > Email : * </label>
-			<div class="col-sm-10"> {{ form_widget(form.email) }}	</div>
-			
-
-			<label class="col-sm-2 col-form-label"> Téléphone : </label>
-  			<div class="col-sm-10">	 {{ form_widget(form.telephone) }} </div>	
-
-			<label class="col-sm-2 col-form-label"> Site de rattachement : * </label>
-  			<div class="col-sm-10">	 {{ form_widget(form.noSite) }}	</div>	
-				
-		</div>
-
-		<div class="form-group row">
-			
-			<label class="col-sm-2 col-form-label"> {{form_label(form.password.first)}} *</label>
-  			<div class="col-sm-10"> {{ form_widget(form.password.first) }} </div>
-			
-			<label class="col-sm-2 col-form-label">{{form_label(form.password.second)}} *</label>
-			<div class="col-sm-10">{{ form_widget(form.password.second) }} </div>
-
-			
-		</div>
-		<p> * Champs obligatoires </p>
-		
-		<div class="gap-2 col-6 mx-auto">
-	  		<button type="submit" class="btn btn-lg btn-primary" > S'inscrire</button>
-	  	
-			<a href="{{ path('accueil')}}" class="btn btn-lg btn-primary">Annuler</a>
-		</div>
-
-		</div>
-        {{ form_end(form) }}
-    </div>
-
+		{{ form_end(form) }}
+	</div>
+	</div>
 {% endblock %}

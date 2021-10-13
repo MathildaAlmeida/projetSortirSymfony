@@ -3,36 +3,45 @@
 {% block title %}Les sites{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center" >	
-        <h1> Gérer les sites  </h1>
-    </div>
+    <div class="container">
+        <div class="d-flex justify-content-center" >
+            <h1> Gérer les sites  </h1>
+        </div>
 
-    <h2>Filtrer les sites </h2>
-        
-    <nav class="navbar navbar-light bg-light">
-        <form class="form-inline">
-            <p> Le nom contient : </p>
-            <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Rechercher">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button> 
-        </form>
-    </nav>
+        <h3>Filtrer les sites </h3>
+
+        <nav class="bg-light">
+            <form class="form-inline">
+                <div class="row">
+                    <div class="col-2">
+                        <p> Le nom contient : </p>
+                    </div>
+                    <div class="col">
+                        <input class="form-control" type="search" placeholder="Rechercher" aria-label="Rechercher">
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-outline-success" type="submit">Rechercher</button>
+                    </div>
+                </div>
+            </form>
+        </nav>
 
 
-    <div class="d-flex justify-content-center" >
-        <table class="table table-striped">
-            <thead>
+        <div class="d-flex justify-content-center" >
+            <table class="table table-striped">
+                <thead>
                 <tr>
                     <th scope="col">Sites</th>
                     <th scope="col">Actions</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <tr>
                     <form action="{{ path('ajout_rapide_site') }}" class="form-group form-control" method="POST">
-                    <td><input type="text" name="nomSite" placeholder="un site" /></td>
-                    <td><button type="submit" class="btn btn-success">Ajouter</button>
-                 </form>
-                </tr> 
+                        <td><input type="text" name="nomSite" placeholder="un site" /></td>
+                        <td><button type="submit" class="btn btn-success">Ajouter</button>
+                    </form>
+                </tr>
                 {% for s in sites %}
                     <tr>
                         <td id="ville">  {{s.nomSite}}</td>
@@ -40,9 +49,10 @@
                             <a onclick="return confirm('Supprimer :{{ s.nomSite }} ?')" href="{{ path('supprimer_site',{ id:s.id }) }}"  class="btn btn-danger del">Supprimer</a>
                         </td>
                     </tr>
-                {% endfor %} 
-            </tbody>
-        </table>
-		
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
     </div>
 {% endblock %}
