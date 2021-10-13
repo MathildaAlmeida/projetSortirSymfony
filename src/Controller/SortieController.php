@@ -107,7 +107,7 @@ class SortieController extends AbstractController
         $em->persist($inscriptions);
         $em->flush();
 
-        return $this->redirectToRoute('accueil');
+        return $this->redirectToRoute('sortie_afficher');
     }
 
     /**

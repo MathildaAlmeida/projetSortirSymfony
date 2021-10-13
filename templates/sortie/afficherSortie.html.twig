@@ -45,6 +45,14 @@
                 {% endfor %}
             </tbody>
         </table>
+        <div class="gap-2 col-6 mx-auto">
+            {% if app.user %}
+                {% if sortie.noEtat.libelle == 'Ouvert' %}
+                    <a class="btn btn-primary" href="{{ path('sortie_inscrire',{ id:sortie.id }) }}">S'inscrire </a>
+                {%  endif %}
+            {% endif %}
+            <a href="{{ path('accueil')}}" class="btn btn-primary">Retour</a>
+        </div>
 
     </div>
 {% endblock %}

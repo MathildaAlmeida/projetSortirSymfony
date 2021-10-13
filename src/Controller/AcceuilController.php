@@ -27,31 +27,8 @@ class AcceuilController extends AbstractController
         $etat       = $repoEtat->findAll();
         $user       = $this->getUser();
         $inscrits = "";
-        //$inscrit = new Inscriptions; 
 
-        //$results = array();
-        
-        /*foreach($sorties as $i => $value){
-            $res = new Result();
-            $inscrit = new Inscriptions(); 
-            $res->setSortie($value);
-
-            $inscrit    = $repoInscrit->findOneBy(
-                [
-                    'noParticipant' => $user->getId(), 
-                    'noSortie' => $value->getId()
-                ]
-            );
-            $res->setInscription($inscrit);
-
-            array_push($results, $res); 
-
-            $i++; 
-        }
-
-        dd($results); */
-
-
+       
         if (!empty($user)) {
             $inscrits    = $repoInscrit->findBy(
                 [
@@ -68,32 +45,5 @@ class AcceuilController extends AbstractController
             'inscrits'  =>  $inscrits,
             'etat'      =>  $etat
         ]);
-    }
-}
-
-class Result{
-    private Sorties $sortie; 
-    private Inscriptions $inscription; 
-
-    public function __construct(){
-
-    }
-
-    public function getSortie(): ?Sorties
-    {
-        return $this->sortie;
-    }
-    public function setSortie(Sorties $sortie): void
-    {
-        $this->sortie = $sortie;
-    }
-
-    public function getInscription(): ?Inscriptions
-    {
-        return $this->inscription;
-    }
-    public function setInscription(Inscriptions $inscription): void
-    {
-        $this->inscription = $inscription;
     }
 }

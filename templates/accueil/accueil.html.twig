@@ -100,17 +100,11 @@
                                 <td><a name="participant" class="btn btn-sm btn-outline-dark" href="{{ path('profil_participant',{ id : sortie.organisateur.id}) }}" >{{ sortie.organisateur.nom}}</a></td><!-- Organisateur -->                                
                                 <td> <a href="{{ path('sortie_afficher',{ id:sortie.id }) }}">Afficher</a> 
                                 {% if app.user %}
-                                    {% if sortie.noEtat.libelle == 'Ouvert' %}
-                                    {% if inscrits is empty %}
-                                        - <a href="{{ path('sortie_inscrire',{ id:sortie.id }) }}">S'inscrire </a>
-                                    {% endif %}
+                                    {% if sortie.noEtat.libelle == 'Ouvert' %}                                    
                                         {% for inscrit in inscrits %}                                            
-                                                {% if inscrit.noSortie.id != sortie.id  %}
-                                                    - <a href="{{ path('sortie_inscrire',{ id:sortie.id }) }}">S'inscrire </a>
-                                                {%  else %}
+                                                {% if inscrit.noSortie.id == sortie.id  %}
                                                     - <a href="{{ path('sortie_desister',{ id:sortie.id }) }}" >Se désister</a>                                            
-                                                {% endif %}
-                                            
+                                                {% endif %}                                            
                                         {% endfor %}                                   
                                     {% endif %}                                
                                     {% if sortie.organisateur.pseudo == app.user.pseudo or app.user.administrateur == 1 %}
