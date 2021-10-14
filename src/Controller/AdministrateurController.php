@@ -103,9 +103,7 @@ class AdministrateurController extends AbstractController
         $em->persist($ville);
         $em->flush();
 
-        return $this->redirectToRoute('villes', [
-            
-        ]);
+        return $this->redirectToRoute('villes');
     }
 
      /**
