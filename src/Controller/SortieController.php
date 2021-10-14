@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Etats;
 use App\Entity\Inscriptions;
 use App\Entity\Lieux;
+use App\Entity\User;
 use App\Entity\Sorties;
 use App\Entity\Villes;
 use App\Form\AddLieuxType;
