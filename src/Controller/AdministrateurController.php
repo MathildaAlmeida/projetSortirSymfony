@@ -96,25 +96,28 @@ class AdministrateurController extends AbstractController
     public function modifierVille(Villes $ville, EntityManagerInterface $em,Request $request ): Response
     {
         //Recuperer données formulaire
-        $nomVille = $request->get('nomVille');
-        $codePostal = $request->get('codePostal');
-        $valider = $request->get('valider');
+        $nomVille = $request->get('nomVille2');
+        $codePostal = $request->get('codePostal2');
         $ville->setNomVille($nomVille);
         $ville->setCodePostal($codePostal);
         $em->persist($ville);
         $em->flush();
 
         return $this->redirectToRoute('villes', [
-            'valider' => $valider,
+            
         ]);
     }
 
      /**
      * @Route("admin/site/modifier/{id}", name="modifier_site")
      */
-    public function modifierSite(Sites $site, EntityManagerInterface $em ): Response
+    public function modifierSite(Sites $site, EntityManagerInterface $em , Request $request): Response
     {
         
+        //Recuperer données formulaire
+        $nomSite = $request->get('nomSite2');
+        $site->setNomSite($nomSite);
+        $em->persist($site);
         $em->flush();
 
         return $this->redirectToRoute('sites');
