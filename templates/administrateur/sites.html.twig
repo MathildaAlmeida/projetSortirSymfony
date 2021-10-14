@@ -45,7 +45,7 @@
                 {% for s in sites %}
                     <tr>
                         <td id="ville">  {{s.nomSite}}</td>
-                        <td> <button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#modifier"> Modifier</button>
+                        <td> <a class="btn btn-primary" data-toggle="modal" href="#modifier{{s.id}}"> Modifier</a>
                             <a onclick="return confirm('Supprimer :{{ s.nomSite }} ?')" href="{{ path('supprimer_site',{ id:s.id }) }}"  class="btn btn-danger del">Supprimer</a>
                         </td>
                     </tr>
@@ -57,23 +57,24 @@
     </div>
 
         <!-- Modal -->
-    <div class="modal fade" id="modifier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     {% for s in sites %}  
+    <div class="modal fade" id="modifier{{s.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">     
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center">
                     <h5 class="modal-title" id="exampleModalLabel">Modifier</h5>
-                </div>
-                {% for s in sites %}
+                </div>                
                  <form action="{{ path('modifier_site',{ id:s.id }) }}" class="form-group form-control" method="POST">
-                    <input type="text" name="nomSite2" value="{{s.nomSite}}" />
-                
+                    <input type="text" name="nomSite2" value="{{s.nomSite}}" />                
                     <div class="modal-footer center">
                         <button type="submit" class="btn btn-primary">Modifier</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                        
                     </div>
-                </form>   
-                {% endfor %}             
+                </form>                                
             </div>
-        </div>
+        </div>        
     </div>
+    {% endfor %}
+
+
 {% endblock %}

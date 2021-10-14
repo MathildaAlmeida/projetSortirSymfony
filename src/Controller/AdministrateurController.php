@@ -15,33 +15,18 @@ use Symfony\Component\Validator\Constraints\All;
 
 class AdministrateurController extends AbstractController
 {
-    /**
-     * @Route("/admin", name="administrateur")
-     */
-    public function index(): Response
-    {
-        return $this->render('administrateur/accueil.html.twig', [
-            'controller_name' => 'AdministrateurController',
-        ]);
-    }
-
+    
     /**
      * @Route("/admin/villes", name="villes")
      */
     public function ville(VillesRepository $villeRepo, Request $request, EntityManagerInterface $em): Response
     {
-
-        $ville = $villeRepo->findAll();
-
-        $valeur=$request->get('valeur');
         
-        $villeRechercher = $villeRepo->findBy(['nomVille' => $valeur]);
-
-
+        $ville = $villeRepo->findAll();
+        
+            
         return $this->render('administrateur/villes.html.twig', [
-           'villes' => $ville,
-           'valeur' => $valeur,
-            'villeFiltre' => $villeRechercher
+           'villes' => $ville
         ]);
     }
 
@@ -52,7 +37,7 @@ class AdministrateurController extends AbstractController
     {
         $site = $sitesRepository->findAll();
         return $this->render('administrateur/sites.html.twig', [
-           'sites'=>$site
+           'sites'=>$site,
         ]);
     }
 

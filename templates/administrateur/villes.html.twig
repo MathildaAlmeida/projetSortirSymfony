@@ -48,7 +48,7 @@
                         <tr>
                             <td id="ville">  {{v.nomVille}}</td>
                             <td> {{ v.codePostal}}</td>
-                            <td> <button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#modifier"> Modifier</button>
+                            <td> <a  class="btn btn-primary" data-toggle="modal" href="#modifier{{v.id}}"> Modifier</a>
                                 <a onclick="return confirm('Supprimer :{{ v.nomVille }} ?')" href="{{ path('supprimer_ville',{ id:v.id }) }}"  class="btn btn-danger del">Supprimer</a>
                             </td>
                         </tr>
@@ -58,25 +58,26 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="modifier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal --> 
+    {% for v in villes %}
+    <div class="modal fade" id="modifier{{v.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center">
                     <h5 class="modal-title" id="exampleModalLabel">Modifier</h5>
-                </div>
-                {% for v in villes %}
-                <form action="{{ path('modifier_ville', {id:v.id}) }}" class="form-group form-control" method="POST">
+                </div>               
+                <form action="{{ path('modifier_ville', {id:v.id}) }}" class="form-group form-control" method="POST">                   
                     <input type="text" name="nomVille2" value="{{v.nomVille}}" />
-                    <input type="text" name="codePostal2" value=" {{ v.codePostal}}"/>                        
-
+                    <input type="text" name="codePostal2" value=" {{ v.codePostal}}"/>  
                     <div class="modal-footer center">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                         <button type="submit" class="btn btn-primary">Modifier</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>                        
                     </div>
-                </form>
-                {% endfor %}             
+                </form>                            
             </div>
         </div>
     </div>
+    {% endfor %} 
+
+    
 {% endblock %}
