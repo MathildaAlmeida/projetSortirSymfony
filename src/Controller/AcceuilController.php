@@ -46,4 +46,5 @@ class AcceuilController extends AbstractController
             'etat'      =>  $etat
         ]);
     }
+
 }

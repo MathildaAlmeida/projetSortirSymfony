@@ -29,9 +29,11 @@ class Sites
      */
     private $users;
 
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,4 +82,5 @@ class Sites
 
         return $this;
     }
+
 }

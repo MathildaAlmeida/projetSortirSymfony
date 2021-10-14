@@ -85,6 +85,7 @@ class Sorties
      */
     private $inscriptions;
 
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
