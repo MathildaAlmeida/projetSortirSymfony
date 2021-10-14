@@ -17,6 +17,10 @@
 
 				</div>
 			{% endfor %}
+			<div class="alert alert-danger">
+				{{ form_errors(form.password.first) }}
+				{{ form_errors(form.password.second) }}
+			</div>
 			<div class="row" >
 				<div class="col-6">
 					<div class="mb-3">
@@ -59,7 +63,7 @@
 				<div class="mb-3">
 					<label class="form-label">{{form_label(form.password.second)}} <span class="obligatoire">*</span></label>
 					{{ form_widget(form.password.second,{'attr':{'class':'form-control'}}) }}
-				</div>
+				</div>				
 			</div>
 			<p> <span class="obligatoire">*</span> Champs obligatoires </p>
 
