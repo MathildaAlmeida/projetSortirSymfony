@@ -54,27 +54,36 @@ class ProfilController extends AbstractController
      */
     public function inscription(Request $request, EntityManagerInterface  $em, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator): Response
     {
+        //Création de l'user
         $user =new User();
+
+        //Création du formulaire d'inscription
         $form = $this->createForm(ProfilFormType::class, $user);
         $form->handleRequest($request);
 
         $errors = $validator->validate($user);
-
+        //Verification si formulaire valide
         if ($form->isSubmitted() && $form->isValid()) {
+            //Vérification si chmaps téléphone vide 
             if($user->getTelephone() == null){
                 $user->setTelephone(null);
             }
+            //Hashage du password pour inseré en base
             $user->setPassword( $passwordEncoder->encodePassword( $user,$user->getPassword() ));
 
+            //Par défault, l'user n'est pas admin, et est actif
             $user->setAdministrateur(0);
             $user->setActif(1);
             
+            //Insertion en base
             $em->persist($user);
             $em->flush();
 
+            //Redirection page d'accueil si tout est ok
             return $this->redirectToRoute('accueil');
         }
 
+        //Renvoi le formulaire sur la page d'inscription avec les potentiels erreurs du form
         return $this->renderForm('profil/inscription.html.twig', [
             'form' => $form,
             'errors' => $errors
